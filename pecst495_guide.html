@@ -1,0 +1,2496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PECST495 — Advanced Data Structures: Complete Study Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=JetBrains+Mono:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,600;0,700;1,300;1,600&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0c0e13;
+    --bg2: #12151c;
+    --bg3: #1a1e28;
+    --border: #252a38;
+    --text: #d4cfc8;
+    --text-dim: #7a7a8a;
+    --gold: #e8a020;
+    --gold-dim: #b07818;
+    --blue: #5b9cf6;
+    --blue-dim: #3a6dbf;
+    --green: #4ec994;
+    --red: #f05a5a;
+    --purple: #a78bfa;
+    --teal: #22d3ee;
+    --font-body: 'Crimson Pro', Georgia, serif;
+    --font-display: 'Syne', sans-serif;
+    --font-head: 'Cormorant Garamond', Georgia, serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 17px;
+    line-height: 1.8;
+    display: flex;
+  }
+
+  /* ── SIDEBAR ─────────────────────────────────────────── */
+  #sidebar {
+    width: 280px;
+    min-width: 280px;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    background: var(--bg2);
+    border-right: 1px solid var(--border);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+
+  #sidebar::-webkit-scrollbar { width: 4px; }
+  #sidebar::-webkit-scrollbar-track { background: transparent; }
+  #sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+  .sidebar-header {
+    padding: 28px 20px 20px;
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(135deg, #12151c 0%, #1a1d28 100%);
+  }
+
+  .sidebar-header .course-code {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--gold);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .sidebar-header h2 {
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.04em;
+    line-height: 1.4;
+  }
+
+  .sidebar-header .subtitle {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-dim);
+    margin-top: 6px;
+    letter-spacing: 0.1em;
+  }
+
+  .module-nav {
+    padding: 12px 0;
+    flex: 1;
+  }
+
+  .module-label {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    padding: 14px 20px 6px;
+    display: block;
+  }
+
+  .module-label:not(:first-child) {
+    border-top: 1px solid var(--border);
+    margin-top: 6px;
+  }
+
+  .nav-item {
+    display: block;
+    padding: 6px 20px 6px 28px;
+    font-family: var(--font-body);
+    font-size: 13.5px;
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: all 0.2s;
+    border-left: 2px solid transparent;
+    line-height: 1.4;
+  }
+
+  .nav-item:hover {
+    color: var(--text);
+    background: rgba(255,255,255,0.04);
+    border-left-color: var(--gold-dim);
+  }
+
+  .nav-item.active {
+    color: var(--gold);
+    background: rgba(232,160,32,0.08);
+    border-left-color: var(--gold);
+  }
+
+  /* ── MAIN CONTENT ─────────────────────────────────────── */
+  #main {
+    flex: 1;
+    min-width: 0;
+    padding: 0;
+  }
+
+  /* ── HERO ─────────────────────────────────────────────── */
+  .hero {
+    padding: 80px 72px 60px;
+    background: linear-gradient(160deg, #12151c 0%, #0c0e13 60%);
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -120px; right: -80px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(232,160,32,0.07) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .hero::after {
+    content: 'ADS';
+    position: absolute;
+    bottom: -20px; right: 60px;
+    font-family: var(--font-display);
+    font-size: 160px;
+    font-weight: 800;
+    color: rgba(255,255,255,0.02);
+    letter-spacing: -0.05em;
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .hero .tag {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .hero .tag::before {
+    content: '';
+    display: block;
+    width: 24px; height: 1px;
+    background: var(--gold);
+  }
+
+  .hero h1 {
+    font-family: var(--font-head);
+    font-size: clamp(36px, 5vw, 60px);
+    font-weight: 300;
+    color: #fff;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero p {
+    font-size: 17px;
+    color: var(--text-dim);
+    max-width: 580px;
+    line-height: 1.7;
+    margin-bottom: 28px;
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: 28px;
+    flex-wrap: wrap;
+  }
+
+  .hero-meta-item {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+  }
+
+  .hero-meta-item span {
+    color: var(--blue);
+  }
+
+  /* ── SECTIONS ─────────────────────────────────────────── */
+  .content {
+    padding: 0 72px 80px;
+  }
+
+  .module-section {
+    border-top: 1px solid var(--border);
+    padding-top: 64px;
+    margin-top: 60px;
+  }
+
+  .module-section:first-child {
+    border-top: none;
+    margin-top: 40px;
+  }
+
+  .module-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    background: rgba(232,160,32,0.1);
+    border: 1px solid rgba(232,160,32,0.25);
+    padding: 5px 12px;
+    border-radius: 2px;
+    margin-bottom: 18px;
+  }
+
+  .module-title {
+    font-family: var(--font-head);
+    font-size: clamp(30px, 4vw, 46px);
+    font-weight: 300;
+    color: #fff;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 14px;
+  }
+
+  .module-intro {
+    font-size: 17px;
+    color: var(--text-dim);
+    max-width: 700px;
+    margin-bottom: 48px;
+    line-height: 1.75;
+    border-left: 3px solid var(--border);
+    padding-left: 18px;
+  }
+
+  .topic {
+    margin-bottom: 56px;
+    padding-bottom: 56px;
+    border-bottom: 1px solid rgba(37,42,56,0.6);
+  }
+
+  .topic:last-child {
+    border-bottom: none;
+  }
+
+  .topic-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 22px;
+  }
+
+  .topic-number {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--gold);
+    background: rgba(232,160,32,0.12);
+    border: 1px solid rgba(232,160,32,0.2);
+    padding: 3px 8px;
+    border-radius: 2px;
+    margin-top: 8px;
+    min-width: fit-content;
+  }
+
+  .topic h2 {
+    font-family: var(--font-head);
+    font-size: clamp(22px, 3vw, 32px);
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+
+  .topic h3 {
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin: 28px 0 10px;
+  }
+
+  .topic h4 {
+    font-family: var(--font-display);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin: 22px 0 8px;
+  }
+
+  .topic p {
+    margin-bottom: 14px;
+    color: var(--text);
+    font-size: 16.5px;
+    line-height: 1.85;
+  }
+
+  /* ── CALLOUT BOXES ────────────────────────────────────── */
+  .callout {
+    border-radius: 4px;
+    padding: 18px 22px;
+    margin: 22px 0;
+    font-size: 15.5px;
+    line-height: 1.75;
+  }
+
+  .callout-key {
+    background: rgba(91,156,246,0.08);
+    border-left: 3px solid var(--blue);
+    color: var(--text);
+  }
+
+  .callout-key strong { color: var(--blue); }
+
+  .callout-warn {
+    background: rgba(232,160,32,0.08);
+    border-left: 3px solid var(--gold);
+    color: var(--text);
+  }
+
+  .callout-warn strong { color: var(--gold); }
+
+  .callout-example {
+    background: rgba(78,201,148,0.07);
+    border-left: 3px solid var(--green);
+    color: var(--text);
+  }
+
+  .callout-example strong { color: var(--green); }
+
+  .callout-math {
+    background: rgba(167,139,250,0.08);
+    border-left: 3px solid var(--purple);
+    color: var(--text);
+    font-family: var(--font-mono);
+    font-size: 13.5px;
+    line-height: 1.9;
+  }
+
+  .callout-math strong { color: var(--purple); }
+
+  /* ── CODE BLOCKS ──────────────────────────────────────── */
+  pre {
+    background: #090b10;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 20px 22px;
+    overflow-x: auto;
+    margin: 20px 0;
+    position: relative;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    line-height: 1.7;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+
+  pre .lang-label {
+    position: absolute;
+    top: 8px; right: 12px;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  .kw { color: var(--purple); }
+  .fn { color: var(--blue); }
+  .cm { color: #4a5070; font-style: italic; }
+  .st { color: var(--green); }
+  .nm { color: var(--gold); }
+  .op { color: var(--teal); }
+
+  code {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--border);
+    padding: 1px 6px;
+    border-radius: 3px;
+    color: var(--teal);
+  }
+
+  /* ── TABLES ───────────────────────────────────────────── */
+  .table-wrap {
+    overflow-x: auto;
+    margin: 22px 0;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14.5px;
+    font-family: var(--font-mono);
+  }
+
+  th {
+    background: var(--bg3);
+    color: var(--gold);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+  }
+
+  td {
+    padding: 10px 16px;
+    border-bottom: 1px solid rgba(37,42,56,0.5);
+    color: var(--text);
+    vertical-align: top;
+    line-height: 1.6;
+  }
+
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(255,255,255,0.02); }
+
+  /* ── DIAGRAM / VISUAL BOXES ───────────────────────────── */
+  .diagram {
+    background: #090b10;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 24px;
+    margin: 22px 0;
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    line-height: 1.8;
+    color: var(--text-dim);
+    white-space: pre;
+    overflow-x: auto;
+  }
+
+  .diagram .hl { color: var(--gold); font-weight: 600; }
+  .diagram .bl { color: var(--blue); }
+  .diagram .gr { color: var(--green); }
+  .diagram .rd { color: var(--red); }
+  .diagram .pr { color: var(--purple); }
+
+  /* ── STEP LIST ────────────────────────────────────────── */
+  .steps {
+    list-style: none;
+    counter-reset: step;
+    margin: 18px 0;
+  }
+
+  .steps li {
+    counter-increment: step;
+    display: flex;
+    gap: 14px;
+    margin-bottom: 12px;
+    align-items: flex-start;
+    font-size: 15.5px;
+    line-height: 1.75;
+  }
+
+  .steps li::before {
+    content: counter(step);
+    min-width: 24px;
+    height: 24px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    color: var(--gold);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 2px;
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+
+  /* ── DEFINITION LIST ──────────────────────────────────── */
+  .def-grid {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 6px 24px;
+    margin: 16px 0;
+    font-size: 15.5px;
+  }
+
+  .def-term {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--teal);
+    padding-top: 2px;
+    white-space: nowrap;
+  }
+
+  .def-desc { color: var(--text); line-height: 1.7; }
+
+  /* ── COMPLEXITY BADGE ─────────────────────────────────── */
+  .complexity-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 16px 0;
+  }
+
+  .cx-badge {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    padding: 5px 12px;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .cx-badge .op-name {
+    color: var(--text-dim);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .cx-badge .cx-val { color: var(--gold); font-weight: 500; }
+
+  .cx-green { background: rgba(78,201,148,0.1); border: 1px solid rgba(78,201,148,0.25); }
+  .cx-green .cx-val { color: var(--green); }
+  .cx-blue { background: rgba(91,156,246,0.1); border: 1px solid rgba(91,156,246,0.25); }
+  .cx-blue .cx-val { color: var(--blue); }
+  .cx-gold { background: rgba(232,160,32,0.1); border: 1px solid rgba(232,160,32,0.25); }
+  .cx-gold .cx-val { color: var(--gold); }
+  .cx-red { background: rgba(240,90,90,0.1); border: 1px solid rgba(240,90,90,0.25); }
+  .cx-red .cx-val { color: var(--red); }
+
+  /* ── SECTION DIVIDER ──────────────────────────────────── */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 36px 0;
+  }
+
+  .divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .divider span {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+  }
+
+  /* ── EXAM SPOTLIGHT ───────────────────────────────────── */
+  .exam-box {
+    background: linear-gradient(135deg, rgba(232,160,32,0.06) 0%, rgba(91,156,246,0.04) 100%);
+    border: 1px solid rgba(232,160,32,0.2);
+    border-radius: 6px;
+    padding: 24px 26px;
+    margin: 28px 0;
+  }
+
+  .exam-box .exam-label {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .exam-box .exam-label::before {
+    content: '★';
+    font-size: 12px;
+  }
+
+  .exam-box p {
+    font-size: 15.5px;
+    line-height: 1.8;
+    color: var(--text);
+    margin-bottom: 10px;
+  }
+
+  .exam-box p:last-child { margin-bottom: 0; }
+
+  /* ── PROGRESS BAR ─────────────────────────────────────── */
+  .reading-progress {
+    position: fixed;
+    top: 0; left: 0;
+    width: 0%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold), var(--blue));
+    z-index: 1000;
+    transition: width 0.1s;
+  }
+
+  /* ── SVG DIAGRAMS ─────────────────────────────────────── */
+  .svg-wrap {
+    margin: 22px 0;
+    display: flex;
+    justify-content: center;
+    overflow-x: auto;
+  }
+
+  svg text { font-family: var(--font-mono); }
+
+  /* ── TOC BACK ─────────────────────────────────────────── */
+  .back-top {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-dim);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    margin-top: 16px;
+    transition: color 0.2s;
+  }
+
+  .back-top:hover { color: var(--gold); }
+
+  /* Scrollbar global */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+  @media (max-width: 900px) {
+    #sidebar { display: none; }
+    .content { padding: 0 24px 60px; }
+    .hero { padding: 48px 24px 40px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="reading-progress" id="progress"></div>
+
+<!-- ═══════════════════════════════════════════════════════ SIDEBAR -->
+<nav id="sidebar">
+  <div class="sidebar-header">
+    <div class="course-code">PECST495</div>
+    <h2>Advanced Data Structures</h2>
+    <div class="subtitle">Complete Exam Study Guide</div>
+  </div>
+  <div class="module-nav">
+    <span class="module-label">Module 1 — Foundational</span>
+    <a class="nav-item" href="#arrays-linked">Arrays &amp; Linked Lists</a>
+    <a class="nav-item" href="#rooted-trees">Representing Rooted Trees</a>
+    <a class="nav-item" href="#hash-tables">Hash Tables &amp; Hash Functions</a>
+    <a class="nav-item" href="#separate-chaining">Separate Chaining Analysis</a>
+    <a class="nav-item" href="#cuckoo-hashing">Cuckoo Hashing</a>
+    <a class="nav-item" href="#bloom-filters">Bloom Filters</a>
+    <a class="nav-item" href="#count-min">Count-Min Sketch</a>
+    <a class="nav-item" href="#clickstream">Clickstream &amp; Heavy Hitters</a>
+
+    <span class="module-label">Module 2 — Tree Structures</span>
+    <a class="nav-item" href="#avl-trees">AVL Trees</a>
+    <a class="nav-item" href="#red-black">Red-Black Trees</a>
+    <a class="nav-item" href="#suffix-trees">Suffix Trees &amp; Arrays</a>
+    <a class="nav-item" href="#segment-trees">Segment Trees</a>
+    <a class="nav-item" href="#sparse-table">Sparse Tables</a>
+    <a class="nav-item" href="#binomial-heap">Binomial Heaps</a>
+    <a class="nav-item" href="#fibonacci-heap">Fibonacci Heaps</a>
+    <a class="nav-item" href="#merkle-trees">Merkle Trees</a>
+    <a class="nav-item" href="#tries">Tries &amp; Autocomplete</a>
+
+    <span class="module-label">Module 3 — Specialized</span>
+    <a class="nav-item" href="#quadtrees">Quadtrees</a>
+    <a class="nav-item" href="#kd-trees">KD-Trees</a>
+    <a class="nav-item" href="#r-trees">R-Trees</a>
+    <a class="nav-item" href="#persistence">Persistence &amp; Retroactivity</a>
+    <a class="nav-item" href="#skip-lists">Skip Lists</a>
+    <a class="nav-item" href="#tango-trees">Tango Trees</a>
+    <a class="nav-item" href="#ann-search">Approximate Nearest Neighbor</a>
+    <a class="nav-item" href="#posting-list">Posting List Intersection</a>
+
+    <span class="module-label">Module 4 — Applications</span>
+    <a class="nav-item" href="#dht">Distributed Hash Tables</a>
+    <a class="nav-item" href="#consistent-hashing">Consistent Hashing</a>
+    <a class="nav-item" href="#distributed-bst">Distributed BST</a>
+    <a class="nav-item" href="#bwt">Burrows-Wheeler Transform</a>
+    <a class="nav-item" href="#histograms">Histograms &amp; Compression</a>
+    <a class="nav-item" href="#wavelet-trees">Wavelet Trees</a>
+    <a class="nav-item" href="#crypto-hash">Cryptographic Hashing</a>
+    <a class="nav-item" href="#splay-trees">Splay Trees</a>
+    <a class="nav-item" href="#ray-tracing">Ray Tracing &amp; BVH</a>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════ MAIN -->
+<main id="main">
+
+<!-- HERO -->
+<section class="hero">
+  <div class="tag">APJ Abdul Kalam Technological University · April 2026</div>
+  <h1>Advanced Data<br><em>Structures</em></h1>
+  <p>A complete, deeply detailed study guide for PECST495 — covering every topic, subtopic, derivation, worked example, and exam scenario across all four modules.</p>
+  <div class="hero-meta">
+    <div class="hero-meta-item">MODULES <span>04</span></div>
+    <div class="hero-meta-item">TOPICS <span>30+</span></div>
+    <div class="hero-meta-item">CONTACT HOURS <span>36</span></div>
+    <div class="hero-meta-item">MAX MARKS <span>60</span></div>
+  </div>
+</section>
+
+<div class="content">
+
+<!-- ╔═══════════════════════════════════════════════════════╗
+     ║  MODULE 1: FOUNDATIONAL DATA STRUCTURES              ║
+     ╚═══════════════════════════════════════════════════════╝ -->
+<section class="module-section" id="module1">
+  <div class="module-badge">Module 01</div>
+  <h1 class="module-title">Foundational Data Structures</h1>
+  <p class="module-intro">This module lays the groundwork by revisiting arrays and linked lists through the lens of pointer manipulation and object representation, then dives into hashing — the single most practically important idea in algorithmic engineering. You will study hash tables, hash function design, cuckoo hashing, Bloom filters, Count-Min Sketch, and their applications in networks and data science.</p>
+
+  <!-- 1.1 ARRAYS & LINKED LISTS -->
+  <div class="topic" id="arrays-linked">
+    <div class="topic-header">
+      <div class="topic-number">1.1</div>
+      <h2>Arrays &amp; Linked Lists — A Deep Revisit</h2>
+    </div>
+
+    <p>At first glance, arrays and linked lists seem elementary. But understanding them at the level of pointer arithmetic, memory layout, and object representation is the foundation for every advanced structure you will study. Every tree, heap, and hash table is ultimately built from one or both of these primitives.</p>
+
+    <h3>Arrays: Memory Layout and Why It Matters</h3>
+    <p>An array stores elements in <strong>contiguous memory</strong>. If the array starts at address <code>base</code> and each element occupies <code>w</code> bytes, then the element at index <code>i</code> lives at address <code>base + i × w</code>. This computation is done in a single instruction — that is why random access is O(1).</p>
+
+    <p>The deeper reason arrays are fast in practice is <strong>cache locality</strong>. When the CPU loads element <code>A[i]</code>, it fetches an entire <em>cache line</em> (typically 64 bytes) from RAM. Elements <code>A[i+1]</code>, <code>A[i+2]</code>, and so on are likely already in cache, making sequential traversal extremely fast. This is called <strong>spatial locality</strong>.</p>
+
+    <div class="diagram"><span class="hl">Physical Memory Layout of int A[6]:</span>
+
+Base addr →  ┌────────┬────────┬────────┬────────┬────────┬────────┐
+             │ A[0]   │ A[1]   │ A[2]   │ A[3]   │ A[4]   │ A[5]   │
+             │  12    │  25    │  36    │  20    │   7    │  99    │
+             └────────┴────────┴────────┴────────┴────────┴────────┘
+             +0       +4       +8       +12      +16      +20     bytes
+
+<span class="gr">A[3] address = base + 3 × 4 = base + 12</span>  (computed, not searched)</div>
+
+    <h3>Dynamic Arrays (Amortized Resizing)</h3>
+    <p>A plain array has fixed capacity. A dynamic array (like C++'s <code>std::vector</code> or Python's <code>list</code>) starts with some capacity and <em>doubles</em> when full. The doubling strategy keeps insertions amortized O(1) — even though individual inserts occasionally cost O(n) for copying, the total work across n inserts is O(n).</p>
+
+    <div class="callout callout-math">
+      <strong>Amortized Analysis (Potential Method):</strong><br>
+      Let Φ = 2·size − capacity (potential function).<br>
+      For a normal insert: actual cost = 1, ΔΦ = 2. Amortized = 3.<br>
+      For a doubling insert: actual cost = n+1, ΔΦ = 2 − n. Amortized = 3.<br>
+      Every operation costs amortized O(1). Total for n ops: O(n). ✓
+    </div>
+
+    <h3>Linked Lists: Pointer-Based Structures</h3>
+    <p>A singly linked list stores each element in a <strong>node object</strong> containing a data field and a pointer (<code>next</code>) to the successor. Nodes can live anywhere in memory — they are connected through pointers, not through physical adjacency.</p>
+
+    <div class="diagram"><span class="hl">Singly Linked List:</span>
+
+  head                                         tail
+   │
+   ▼
+┌──────┬───┐    ┌──────┬───┐    ┌──────┬───┐    ┌──────┬────┐
+│  12  │ ●─┼───▶│  25  │ ●─┼───▶│  36  │ ●─┼───▶│  20  │NULL│
+└──────┴───┘    └──────┴───┘    └──────┴───┘    └──────┴────┘
+  data  next      data  next      data  next      data  next
+
+<span class="gr">Insertion at head: O(1)  |  Deletion at head: O(1)</span>
+<span class="rd">Random access to index i: O(i)  ← must traverse from head</span></div>
+
+    <h3>Doubly Linked Lists and Sentinel Nodes</h3>
+    <p>A doubly linked list adds a <code>prev</code> pointer, enabling O(1) deletion of any node <em>given a pointer to it</em>. This is exploited in Fibonacci heaps and many other structures. A common implementation trick is to use <strong>sentinel</strong> (dummy) nodes at both ends, eliminating all null-pointer special cases in the code.</p>
+
+    <div class="callout callout-key">
+      <strong>Key Design Insight:</strong> Linked lists pay a memory overhead of one or two pointer fields per node, plus the cache-unfriendliness of pointer chasing. But they buy O(1) insertion and deletion at any known position, and dynamic sizing without reallocation. The choice between array and linked list always involves this trade-off. Most advanced structures use <em>both</em> — e.g., hash tables with separate chaining combine arrays (the slot array) and linked lists (the chains).
+    </div>
+
+    <h3>Implementation of Pointers and Objects</h3>
+    <p>In languages without native pointers (like some scripting languages), data structures are often implemented using <strong>parallel arrays</strong>. For a linked list of integers, you would maintain three arrays: <code>key[]</code>, <code>next[]</code>, and <code>prev[]</code>, where the integer index plays the role of a pointer. This is exactly how CLRS (the textbook) presents it, and it is the same idea behind memory pools and slab allocators in operating systems kernels.</p>
+
+    <pre><span class="cm">// Linked-list using parallel arrays (no pointer type needed)</span>
+<span class="kw">int</span> key[MAX], next[MAX], prev[MAX];
+<span class="kw">int</span> head = -<span class="nm">1</span>;    <span class="cm">// -1 represents NULL</span>
+<span class="kw">int</span> free_list = <span class="nm">0</span>; <span class="cm">// next free slot index</span>
+
+<span class="kw">void</span> <span class="fn">insert_head</span>(<span class="kw">int</span> val) {
+    <span class="kw">int</span> x = free_list++;   <span class="cm">// allocate node</span>
+    key[x]  = val;
+    next[x] = head;
+    prev[x] = -<span class="nm">1</span>;
+    <span class="kw">if</span> (head != -<span class="nm">1</span>) prev[head] = x;
+    head = x;
+}<span class="lang-label">C pseudocode</span></pre>
+
+    <div class="complexity-row">
+      <div class="cx-badge cx-green"><span class="op-name">Array Access</span><span class="cx-val">O(1)</span></div>
+      <div class="cx-badge cx-green"><span class="op-name">List Insert/Delete (given ptr)</span><span class="cx-val">O(1)</span></div>
+      <div class="cx-badge cx-red"><span class="op-name">List Search</span><span class="cx-val">O(n)</span></div>
+      <div class="cx-badge cx-gold"><span class="op-name">Dynamic Array Insert (amortized)</span><span class="cx-val">O(1)</span></div>
+    </div>
+  </div>
+
+  <!-- 1.2 REPRESENTING ROOTED TREES -->
+  <div class="topic" id="rooted-trees">
+    <div class="topic-header">
+      <div class="topic-number">1.2</div>
+      <h2>Representing Rooted Trees in Memory</h2>
+    </div>
+
+    <p>A rooted tree with n nodes can be stored in several ways, and the choice dramatically affects the performance of operations. The three main representations are the parent array, child-sibling pointers, and adjacency lists. This is a direct exam question — you must be able to compare them precisely.</p>
+
+    <h3>Representation 1: Parent Array</h3>
+    <p>The simplest representation. Maintain an array <code>parent[1..n]</code> where <code>parent[i]</code> is the index of node i's parent. The root has <code>parent[root] = -1</code> (or 0 if 1-indexed). Because it is just a flat array, it is extremely cache-friendly and memory-compact.</p>
+
+    <div class="diagram"><span class="hl">Example Tree:</span>
+
+           1
+          / \
+         2   3
+        / \
+       4   5
+
+<span class="bl">parent array:</span>  Index:  1   2   3   4   5
+                       [ -1,  1,  1,  2,  2 ]
+<span class="cm">// parent[1]=-1 (root), parent[2]=1, parent[3]=1, parent[4]=2, parent[5]=2</span>
+
+<span class="gr">Find parent of node 4: parent[4] = 2  →  O(1)</span>
+<span class="rd">Find children of node 1: scan entire array for values == 1  →  O(n)</span></div>
+
+    <h3>Representation 2: Child-Sibling Pointers (Left-Child Right-Sibling)</h3>
+    <p>Each node stores two pointers: <code>first_child</code> (leftmost child) and <code>next_sibling</code> (next sibling to the right). This allows any general tree to be stored with exactly O(n) pointers total (two per node), and it has the elegant property that it represents a general tree as a <em>binary tree</em>, enabling binary-tree algorithms on general trees.</p>
+
+    <div class="diagram"><span class="hl">Child-Sibling Encoding of the same tree:</span>
+
+Node 1: first_child→2,  next_sibling→NULL
+Node 2: first_child→4,  next_sibling→3
+Node 3: first_child→NULL, next_sibling→NULL
+Node 4: first_child→NULL, next_sibling→5
+Node 5: first_child→NULL, next_sibling→NULL
+
+<span class="bl">Binary-tree view:</span>
+           1
+          /
+         2 ──▶ 3
+        /
+       4 ──▶ 5
+
+<span class="gr">Find children of 2: follow first_child(=4), then next_sibling(=5) → O(degree)</span>
+<span class="rd">Find parent of 4: no direct path → O(n) traversal needed</span></div>
+
+    <h3>Representation 3: Adjacency Lists (Children Lists)</h3>
+    <p>Each node stores a list of its children. In C++ this would be a <code>vector&lt;int&gt;</code> per node. In terms of total memory, all n−1 edges are stored once, so the total space is O(n). This is the most natural representation for graph/tree algorithms like DFS and BFS, and is what most competitive programmers use.</p>
+
+    <div class="table-wrap">
+    <table>
+      <thead><tr><th>Representation</th><th>Space</th><th>Find Parent</th><th>Find Children</th><th>Best For</th></tr></thead>
+      <tbody>
+        <tr><td>Parent Array</td><td>O(n)</td><td>O(1)</td><td>O(n)</td><td>Union-Find, ancestor queries, when parent is the frequent op</td></tr>
+        <tr><td>Child-Sibling</td><td>O(n)</td><td>O(n) worst</td><td>O(degree)</td><td>Memory-constrained, converting general trees to binary trees</td></tr>
+        <tr><td>Adjacency Lists</td><td>O(n)</td><td>O(n) unless augmented</td><td>O(degree)</td><td>DFS/BFS, most tree algorithms, when children are accessed most</td></tr>
+        <tr><td>Adj. Lists + Parent</td><td>O(n)</td><td>O(1)</td><td>O(degree)</td><td>Best all-around; add parent[] array to adjacency representation</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <div class="callout callout-warn">
+      <strong>Exam Focus:</strong> When asked to compare these, hit three dimensions — space, parent query time, and children query time — for each representation. A very common follow-up is asking why we might augment the adjacency list representation with a parent array (answer: O(1) parent lookup for free, since we're adding only O(n) extra space that we already have conceptually).
+    </div>
+  </div>
+
+  <!-- 1.3 HASH TABLES -->
+  <div class="topic" id="hash-tables">
+    <div class="topic-header">
+      <div class="topic-number">1.3</div>
+      <h2>Hash Tables &amp; Hash Functions</h2>
+    </div>
+
+    <p>A hash table is the most widely used data structure in practice. It achieves expected O(1) time for insert, delete, and search — operations that require O(log n) in a balanced BST. The key idea is to convert a key into an array index using a <em>hash function</em>, then store the element at that index.</p>
+
+    <h3>The Hash Function</h3>
+    <p>A hash function <code>h : U → {0, 1, ..., m-1}</code> maps keys from a large universe U to a small range of m slots. Good hash functions satisfy:</p>
+    <ol class="steps">
+      <li><strong>Uniformity:</strong> Each slot is equally likely to be chosen for a random key. This prevents clustering.</li>
+      <li><strong>Determinism:</strong> The same key always maps to the same slot.</li>
+      <li><strong>Efficiency:</strong> Computing h(key) must be fast — ideally O(1).</li>
+      <li><strong>Avalanche effect:</strong> Small changes in the key produce completely different hash values — this prevents collisions among similar keys.</li>
+    </ol>
+
+    <h3>The Division Method</h3>
+    <p>The simplest hash function: <code>h(k) = k mod m</code>. Works best when m is a prime not close to a power of 2. If m = 10 and k = 36, then h(36) = 6. Simple but sensitive to the choice of m.</p>
+
+    <h3>The Multiplication Method</h3>
+    <p>Choose a constant A ∈ (0,1) (Knuth recommends A = (√5 − 1)/2 ≈ 0.6180339...). Then <code>h(k) = ⌊m · (kA mod 1)⌋</code> where <code>kA mod 1</code> means the fractional part of kA. This works well for any m and is less sensitive to the choice of m.</p>
+
+    <h3>Universal Hashing</h3>
+    <p>To defend against adversarial inputs, use <em>universal hashing</em>: randomly choose a hash function from a carefully designed family H at initialization time. A family H is <strong>universal</strong> if for any two distinct keys k₁ ≠ k₂, the probability over a random choice h ∈ H that h(k₁) = h(k₂) is at most 1/m. This guarantees expected O(1) performance even against adversaries who know your algorithm (but not which hash function was chosen).</p>
+
+    <div class="callout callout-math">
+      <strong>Universal Hash Family Example:</strong><br>
+      Choose a prime p &gt; |U|. For random a ∈ {1,...,p-1} and b ∈ {0,...,p-1}:<br>
+      h_{a,b}(k) = ((ak + b) mod p) mod m<br>
+      <br>
+      This is a universal family. Proof: For k₁ ≠ k₂, the difference ak₁+b − ak₂−b = a(k₁−k₂) ≢ 0 (mod p) since p is prime and a ≠ 0. The values mod p are distinct and uniformly distributed, so collision probability ≤ 1/m.
+    </div>
+  </div>
+
+  <!-- 1.4 SEPARATE CHAINING ANALYSIS -->
+  <div class="topic" id="separate-chaining">
+    <div class="topic-header">
+      <div class="topic-number">1.4</div>
+      <h2>Separate Chaining &amp; Expected Analysis</h2>
+    </div>
+
+    <p>When two keys hash to the same slot — a <strong>collision</strong> — separate chaining resolves it by placing all colliding keys in a linked list (called a <em>chain</em>) at that slot. The hash table is then an array of linked lists.</p>
+
+    <h3>The Simple Uniform Hashing Assumption (SUHA)</h3>
+    <p>We assume that every key is equally likely to hash to any of the m slots, independently of all other keys. This is the <em>Simple Uniform Hashing Assumption</em> — it is an idealization, but good hash functions approximate it well. Under SUHA, the analysis becomes clean and elegant using indicator random variables.</p>
+
+    <h3>Load Factor α</h3>
+    <p>The <strong>load factor</strong> α = n/m is the ratio of the number of keys stored (n) to the number of slots (m). It is the average number of keys per slot. If α = 0.4, there is on average less than one key per slot (many slots empty). If α = 5, there are on average 5 keys per slot (long chains).</p>
+
+    <div class="exam-box">
+      <div class="exam-label">Worked Exam Example — Question 1</div>
+      <p><strong>Problem:</strong> Hash table with m = 10 slots. We insert keys 12, 25, 36, 20. (i) Expected keys per slot? (ii) Expected probes to find key 36?</p>
+      <p><strong>Part (i):</strong> n = 4, m = 10, so α = n/m = 4/10 = <strong>0.4</strong>. By linearity of expectation, the expected number of keys in any slot i equals the probability that each key lands there, summed over all keys. For key j, P(h(j) = i) = 1/m = 1/10. So E[keys in slot i] = Σⱼ P(h(j) = i) = n × (1/m) = 4/10 = <strong>0.4</strong>.</p>
+      <p><strong>Part (ii) — Successful Search for key 36:</strong> When we search for key 36, we first hash it to its slot, then traverse the chain. The expected number of keys we examine equals 1 (for key 36 itself) plus the expected number of keys that were inserted <em>after</em> key 36 into the same slot (since they appear before 36 in the chain under a typical linked list implementation).</p>
+      <p>Key 36 was the 3rd key inserted. The probability that any subsequent key (key 20, the 4th key) also hashes to the same slot as 36 is 1/m = 1/10. So expected additional probes = 1 × (1/10) = 0.1. Total expected probes = 1.1.</p>
+      <p><strong>General formula for successful search:</strong> E[probes] = 1 + (number of keys inserted after key x into same slot). For key inserted at position j (1-indexed), expected probes = 1 + (n−j)/m. Averaging over all n keys: <strong>E = 1 + α/2 − 1/(2m)</strong> ≈ <strong>1 + α/2</strong> for large m.</p>
+      <p>For our problem: 1 + 0.4/2 = <strong>1.2</strong> expected probes on average for a successful search.</p>
+      <p><strong>Unsuccessful search:</strong> We must scan the entire chain. E[probes] = α = <strong>0.4</strong> (expected chain length in the hashed slot).</p>
+    </div>
+
+    <h3>Derivation Using Indicator Random Variables</h3>
+    <p>This is a classic technique. Let Xᵢⱼ be an indicator RV that is 1 if key i and key j hash to the same slot, 0 otherwise. Under SUHA, E[Xᵢⱼ] = 1/m for i ≠ j.</p>
+    <p>The total number of collisions is C = Σᵢ≠ⱼ Xᵢⱼ. By linearity of expectation: E[C] = n(n-1)/m = n²/m (for large n). This grows quadratically in n, which is why we need α = n/m to be small (less than 1–2) in practice. Most hash table implementations trigger a <strong>rehash</strong> (resize the table) when α exceeds some threshold like 0.7.</p>
+
+    <h3>Rehashing</h3>
+    <p>When the load factor becomes too large, we allocate a new table of size 2m (or next prime), recompute h(key) for all n keys, and reinsert them. This costs O(n) time but happens infrequently (geometric backoff). Amortized cost per insert remains O(1) using the same argument as dynamic arrays.</p>
+
+    <div class="complexity-row">
+      <div class="cx-badge cx-green"><span class="op-name">Search (avg)</span><span class="cx-val">O(1 + α)</span></div>
+      <div class="cx-badge cx-green"><span class="op-name">Insert (avg)</span><span class="cx-val">O(1)</span></div>
+      <div class="cx-badge cx-green"><span class="op-name">Delete (avg)</span><span class="cx-val">O(1 + α)</span></div>
+      <div class="cx-badge cx-red"><span class="op-name">Worst case (all collide)</span><span class="cx-val">O(n)</span></div>
+    </div>
+  </div>
+
+  <!-- 1.5 CUCKOO HASHING -->
+  <div class="topic" id="cuckoo-hashing">
+    <div class="topic-header">
+      <div class="topic-number">1.5</div>
+      <h2>Cuckoo Hashing</h2>
+    </div>
+
+    <p>Separate chaining gives good <em>average</em> performance, but worst-case lookup is O(n). <strong>Cuckoo hashing</strong>, invented by Pagh and Rodler in 2001, achieves <strong>O(1) worst-case</strong> lookup time. The name comes from the cuckoo bird, which pushes other birds' eggs out of their nests.</p>
+
+    <h3>The Core Idea</h3>
+    <p>Maintain <em>two</em> hash tables T₁ and T₂, each of size m, with two independent hash functions h₁ and h₂. Every key k is stored in exactly one of the two positions: T₁[h₁(k)] or T₂[h₂(k)]. Lookup checks both positions — exactly 2 memory accesses always.</p>
+
+    <h3>Insertion — The Cuckoo Eviction Process</h3>
+    <p>To insert key k: try T₁[h₁(k)]. If empty, store it there — done. If occupied by some other key k', evict k' and store k there. Now k' must find its other position in T₂[h₂(k')]. If T₂[h₂(k')] is occupied by k'', evict k'' and store k' there. Continue until an empty slot is found. This may cycle, in which case we rebuild both tables with new hash functions.</p>
+
+    <div class="diagram"><span class="hl">Cuckoo Hashing Insertion Example:</span>
+Suppose h₁(A)=2, h₂(A)=5, h₁(B)=2, h₂(B)=7
+
+<span class="bl">State before inserting B:</span>
+  T1: [ _ , _ , A , _ , _ , _ ]
+  T2: [ _ , _ , _ , _ , _ , _ , _ , _ ]
+
+<span class="gr">Insert B:</span>
+  T1[h1(B)] = T1[2] is occupied by A.
+  Evict A, place B at T1[2].
+  Now re-insert A: try T2[h2(A)] = T2[5].
+  T2[5] is empty → place A there.
+
+<span class="bl">Final State:</span>
+  T1: [ _ , _ , <span class="hl">B</span> , _ , _ , _ ]
+  T2: [ _ , _ , _ , _ , _ , <span class="hl">A</span> , _ , _ ]
+
+<span class="gr">Lookup A: check T1[h1(A)]=T1[2] → B≠A. Check T2[h2(A)]=T2[5] → A ✓</span>
+<span class="gr">Always at most 2 probes → O(1) worst-case lookup</span></div>
+
+    <h3>Analysis</h3>
+    <p>Insertions succeed (without rebuilding) with high probability when the load factor α = n/(2m) ≤ 0.49. The expected number of evictions per insertion is O(1), and rebuilding is needed with probability O(1/n²). The key theoretical result is that cuckoo hashing can be modeled as a random graph: each key is an edge connecting h₁(k) and h₂(k). Insertion succeeds without cycles iff the resulting graph is acyclic (a forest), which happens with high probability for α < 0.5.</p>
+
+    <div class="callout callout-key">
+      <strong>Why Cuckoo is Used in FPGAs and Network Hardware:</strong> Hardware lookup tables need deterministic, worst-case bounded latency. Checking exactly 2 memory locations (which can be done in parallel) gives O(1) lookup that is ideal for TCAM-replacement and packet classification at line rate. This is exactly the scenario described in Question 10 of the exam.
+    </div>
+
+    <h3>d-Ary Cuckoo Hashing</h3>
+    <p>Generalizing to d ≥ 2 tables and d hash functions, each key can live in any of its d candidate locations. This allows load factors up to <code>1 − O(d/2^d)</code>, dramatically improving space utilization at the cost of slightly more complex insertion. For d=3, load factor can exceed 0.9.</p>
+
+    <div class="complexity-row">
+      <div class="cx-badge cx-green"><span class="op-name">Lookup</span><span class="cx-val">O(1) worst</span></div>
+      <div class="cx-badge cx-gold"><span class="op-name">Insert (amortized)</span><span class="cx-val">O(1) expected</span></div>
+      <div class="cx-badge cx-green"><span class="op-name">Delete</span><span class="cx-val">O(1) worst</span></div>
+      <div class="cx-badge cx-blue"><span class="op-name">Space</span><span class="cx-val">O(n)</span></div>
+    </div>
+  </div>
+
+  <!-- 1.6 BLOOM FILTERS -->
+  <div class="topic" id="bloom-filters">
+    <div class="topic-header">
+      <div class="topic-number">1.6</div>
+      <h2>Bloom Filters</h2>
+    </div>
+
+    <p>A Bloom filter, invented by Burton Howard Bloom in 1970, is a <strong>space-efficient probabilistic data structure</strong> that answers the question "Is element x in the set?" It can return false positives (saying "yes" when the answer is "no") but <em>never</em> false negatives (it will never say "no" when the answer is "yes"). This trade-off — accepting a small probability of error in exchange for dramatically reduced memory — makes it invaluable in distributed systems, databases, and networking.</p>
+
+    <h3>Structure</h3>
+    <p>A Bloom filter consists of a <strong>bit array of m bits</strong>, all initially 0, and <strong>k independent hash functions</strong> h₁, h₂, ..., hₖ, each mapping keys to {0, 1, ..., m-1}.</p>
+
+    <h3>Insertion</h3>
+    <p>To insert key x: for each hash function hᵢ, compute hᵢ(x) and set the bit at position hᵢ(x) to 1. A total of k bits are set (some may already be 1).</p>
+
+    <h3>Membership Query</h3>
+    <p>To check if x is in the set: for each hᵢ, check if bit hᵢ(x) is 1. If <em>all</em> k bits are 1 → answer "probably yes." If <em>any</em> bit is 0 → answer "definitely no."</p>
+
+    <div class="diagram"><span class="hl">Bloom Filter with m=12 bits, k=3 hash functions:</span>
+
+Insert "apple":  h1→3, h2→7, h3→11
+Insert "banana": h1→1, h2→3, h3→9
+
+Bit array:
+  Index:  0  1  2  3  4  5  6  7  8  9 10 11
+  Bits: [ 0, <span class="gr">1</span>, 0, <span class="gr">1</span>, 0, 0, 0, <span class="gr">1</span>, 0, <span class="gr">1</span>, 0, <span class="gr">1</span> ]
+             ↑        ↑              ↑        ↑         ↑
+           banana  apple          apple   banana     apple
+                   banana
+
+Query "apple":  h1(apple)→3 (=1✓), h2(apple)→7 (=1✓), h3(apple)→11 (=1✓) → <span class="gr">FOUND</span>
+Query "cherry": h1(cherry)→1 (=1✓), h2(cherry)→4 (=0✗) → <span class="rd">NOT FOUND (definite)</span>
+Query "grape":  h1(grape)→1 (=1✓), h2(grape)→3 (=1✓), h3(grape)→9 (=1✓) → <span class="hl">FALSE POSITIVE!</span>
+  (All bits happen to be set by other elements, but "grape" was never inserted)</div>
+
+    <h3>False Positive Probability Derivation (Full)</h3>
+    <p>This is a classic exam question. Let's derive it rigorously from first principles.</p>
+
+    <p><strong>Step 1:</strong> After inserting n elements with k hash functions each, the probability that a specific bit remains 0 is the probability that none of the n×k hash function evaluations hit that bit. By SUHA, each evaluation hits any specific bit with probability 1/m. So:</p>
+
+    <div class="callout callout-math">
+      <strong>P(bit remains 0 after n insertions) = (1 − 1/m)^{kn}</strong><br><br>
+      Using the limit e^{-1/m} ≈ (1 − 1/m) for large m:<br>
+      <strong>P(bit = 0) ≈ e^{-kn/m}</strong><br><br>
+      Therefore: <strong>P(bit = 1) ≈ 1 − e^{-kn/m}</strong>
+    </div>
+
+    <p><strong>Step 2:</strong> A false positive occurs when all k bits for a non-member key x happen to be 1 (set by previous insertions of other keys). Assuming independence of the k bits (which holds approximately):</p>
+
+    <div class="callout callout-math">
+      <strong>P(false positive) = P(all k bits = 1 for a random non-member)</strong><br>
+      = (P(one bit = 1))^k<br>
+      <strong>= (1 − e^{-kn/m})^k</strong>
+    </div>
+
+    <p><strong>Step 3: Optimal k.</strong> Given m bits and n elements, what k minimizes the false positive probability? Take derivative with respect to k, set to zero:</p>
+
+    <div class="callout callout-math">
+      Let f(k) = (1 − e^{-kn/m})^k. Taking ln: ln f = k · ln(1 − e^{-kn/m}).<br>
+      Setting d(ln f)/dk = 0 and solving gives:<br>
+      <strong>k_opt = (m/n) · ln(2) ≈ 0.693 · (m/n)</strong><br><br>
+      At optimal k, false positive rate ≈ (0.6185)^{m/n} = 2^{-k_opt}.<br>
+      Equivalently, for a desired false positive rate p:<br>
+      <strong>m = −n · log₂(p) / ln(2) = −1.44 · n · log₂(p)</strong>
+    </div>
+
+    <div class="callout callout-example">
+      <strong>Concrete Numbers:</strong> To store 1 million URLs with 1% false positive rate:<br>
+      m = 1.44 × 10⁶ × log₂(100) ≈ 9.6 million bits ≈ 1.2 MB. A hash set would need ~20–30 MB. Bloom filter uses 15–25× less memory.
+    </div>
+
+    <h3>Deletions and Counting Bloom Filters</h3>
+    <p>Standard Bloom filters do not support deletion. If you delete by clearing bits, you might clear bits that are shared with other elements, causing false negatives. The solution is a <strong>Counting Bloom Filter</strong>: replace each bit with a small counter (typically 4 bits). Insert increments all k counters, delete decrements them. A query checks all k counters are non-zero. The trade-off is 4× memory overhead.</p>
+
+    <div class="exam-box">
+      <div class="exam-label">Exam Question 9 — Full Answer</div>
+      <p><strong>Design: Bloom Filter–Based Index for Distributed Database</strong></p>
+      <p><strong>(i) Encoding and Insertion:</strong> Each node maintains a Bloom filter with m bits and k hash functions. When a new record with key K is inserted into the node's local store, compute h₁(K), h₂(K), ..., hₖ(K) and set those k bits to 1 in the filter. This takes O(k) time — typically O(1) since k is constant (3–7 in practice).</p>
+      <p><strong>(ii) Query Processing:</strong> When a lookup for key K arrives, before accessing disk or the network, query the local Bloom filter by checking bits h₁(K), ..., hₖ(K). If any bit is 0 → K is definitely not in this node's store (skip). If all bits are 1 → K is possibly here; proceed with the actual disk lookup. This eliminates the majority of unnecessary disk accesses.</p>
+      <p><strong>(iii) Handling Insertions and Deletions:</strong> Insertions are handled by setting the k bits (described above). Deletions are problematic for standard Bloom filters. Options: (a) Use a Counting Bloom Filter supporting decrements. (b) Periodically reconstruct the Bloom filter from scratch by scanning the current key set. (c) Accept stale Bloom filters with occasional false positives and tolerate the extra disk lookups they trigger — often acceptable since deletes are rare in databases.</p>
+    </div>
+
+    <div class="complexity-row">
+      <div class="cx-badge cx-green"><span class="op-name">Insert</span><span class="cx-val">O(k)</span></div>
+      <div class="cx-badge cx-green"><span class="op-name">Query</span><span class="cx-val">O(k)</span></div>
+      <div class="cx-badge cx-blue"><span class="op-name">Space</span><span class="cx-val">O(m) = O(n log(1/p))</span></div>
+      <div class="cx-badge cx-red"><span class="op-name">False Negatives</span><span class="cx-val">Zero</span></div>
+    </div>
+  </div>
+
+  <!-- 1.7 COUNT-MIN SKETCH -->
+  <div class="topic" id="count-min">
+    <div class="topic-header">
+      <div class="topic-number">1.7</div>
+      <h2>Count-Min Sketch</h2>
+    </div>
+
+    <p>The Count-Min Sketch (CMS), introduced by Cormode and Muthukrishnan in 2003, solves the <strong>frequency estimation problem</strong>: given a stream of items, estimate how many times each item has appeared, using sublinear memory. It is the frequency-counting equivalent of a Bloom filter.</p>
+
+    <h3>Structure</h3>
+    <p>A 2D array of counters with d rows and w columns. Each row r has its own independent hash function hᵣ mapping items to {0, ..., w−1}.</p>
+
+    <div class="diagram"><span class="hl">Count-Min Sketch with d=3 rows, w=5 columns:</span>
+
+Row 0 (h0): [ 3, 0, 2, 1, 4 ]
+Row 1 (h1): [ 1, 4, 0, 2, 3 ]
+Row 2 (h2): [ 2, 3, 1, 4, 0 ]
+
+<span class="gr">To query frequency of key k:</span>
+  estimate = min(table[0][h0(k)], table[1][h1(k)], table[2][h2(k)])
+
+<span class="cm">The minimum is taken because each counter may be inflated by collisions
+from other keys, but the minimum over independent hash functions
+provides the best (tightest) estimate.</span></div>
+
+    <h3>Update and Query</h3>
+    <p>To update (increment count) for item x: for each row r from 0 to d-1, increment <code>table[r][hᵣ(x)]</code> by 1. To query: return <code>min over r of table[r][hᵣ(x)]</code>.</p>
+
+    <h3>Error Analysis</h3>
+    <p>The true frequency of x is f(x). The estimate f̂(x) = min-count. CMS guarantees:</p>
+
+    <div class="callout callout-math">
+      <strong>P( f̂(x) ≤ f(x) + ε·N ) ≥ 1 − δ</strong><br><br>
+      where N = total stream length (sum of all frequencies),<br>
+      and setting: <strong>w = ⌈e/ε⌉</strong> (width), <strong>d = ⌈ln(1/δ)⌉</strong> (depth).<br><br>
+      Note: f̂(x) ≥ f(x) always (no undercount). Overcount error is bounded by ε·N with probability 1−δ.<br>
+      <strong>Space: O((e/ε) · log(1/δ)) = O(1/ε · log(1/δ))</strong> counters — independent of stream size!
+    </div>
+
+    <h3>Heavy Hitters (Elephants)</h3>
+    <p>An item is a <strong>heavy hitter</strong> if its frequency exceeds N/k (appears in more than 1/k fraction of the stream). The CMS can identify heavy hitters by querying all items whose estimate exceeds N/k. In network monitoring, heavy hitters are network "elephants" — flows consuming most bandwidth. Identifying them allows QoS prioritization and DDoS detection.</p>
+
+    <div class="exam-box">
+      <div class="exam-label">Exam Question 10 — Full Answer (FPGA Packet Processing)</div>
+      <p><strong>System Design: Cuckoo Hashing + Count-Min Sketch</strong></p>
+      <p><strong>(i) Architecture:</strong> The system combines two components: (a) A Cuckoo hash table T for exact flow lookups, mapping flow IDs to actions (forward/drop). Each flow has 2 candidate slots across 2 arrays, enabling O(1) worst-case lookup — critical for line-rate FPGA processing. (b) A Count-Min Sketch CMS for frequency estimation, maintaining approximate per-flow packet counts to identify heavy hitters.</p>
+      <p><strong>(ii) Operation:</strong> For each incoming packet with flow ID f: 1) Look up f in the cuckoo table (2 parallel memory reads). If found, apply the action. If not found, classify as a new flow and add to the table. 2) Update CMS by incrementing CMS[r][hᵣ(f)] for all rows r. Then query CMS estimate for f. If estimate exceeds threshold, flag as a heavy hitter and apply rate limiting or alert.</p>
+      <p><strong>(iii) Complexity:</strong> Cuckoo lookup: O(1) worst-case (2 reads). CMS update: O(d) = O(log(1/δ)) — typically 3–5 operations. CMS query: O(d). Space: Cuckoo O(n) for n flows; CMS O((1/ε) log(1/δ)) — typically a few KB. The two structures are complementary: cuckoo gives exact lookup, CMS gives approximate frequency without per-entry counters.</p>
+    </div>
+
+    <div class="complexity-row">
+      <div class="cx-badge cx-green"><span class="op-name">Update</span><span class="cx-val">O(d)</span></div>
+      <div class="cx-badge cx-green"><span class="op-name">Query</span><span class="cx-val">O(d)</span></div>
+      <div class="cx-badge cx-blue"><span class="op-name">Space</span><span class="cx-val">O(d·w)</span></div>
+      <div class="cx-badge cx-gold"><span class="op-name">Error guarantee</span><span class="cx-val">1-δ prob, ε·N additive</span></div>
+    </div>
+  </div>
+
+  <!-- 1.8 CLICKSTREAM / HEAVY HITTERS -->
+  <div class="topic" id="clickstream">
+    <div class="topic-header">
+      <div class="topic-number">1.8</div>
+      <h2>Applications: Clickstream Processing &amp; Heavy Hitters</h2>
+    </div>
+
+    <p>Click stream analysis refers to processing the sequence of pages/items a user visits in order to understand behavior, recommend items, and detect anomalies. The data volume is massive — billions of events per day in production systems. This motivates the use of streaming data structures like Bloom filters and CMS.</p>
+
+    <h3>Clickstream with Bloom Filters</h3>
+    <p>A common use case: has user X visited URL Y before? If yes, don't show the same ad again. A Bloom filter per user stores all visited URLs. Check is O(k) ≈ O(1) and memory is logarithmic in the number of URLs. False positives mean occasionally not showing an ad the user hadn't actually seen — an acceptable error in advertising.</p>
+
+    <h3>Heavy Hitters in Data Science</h3>
+    <p>Finding the most frequent items in a massive data stream (top-k problem) is fundamental in: recommendation systems (most popular items), network analytics (top-bandwidth flows), search engines (trending queries), and fraud detection (most frequent transactions from suspicious accounts). The CMS-based approach uses O(log n) memory regardless of stream size, making it feasible to run on embedded hardware.</p>
+
+    <h3>Misra-Gries Algorithm</h3>
+    <p>Another approach to heavy hitters: maintain at most k counters. On each item: if it has a counter, increment. If not and there are fewer than k counters, add it. Otherwise, decrement all counters and delete those that reach 0. This guarantees that any item with frequency > n/(k+1) has a counter. Space O(k), update O(k).</p>
+  </div>
+
+</section>
+
+<!-- ╔═══════════════════════════════════════════════════════╗
+     ║  MODULE 2: ADVANCED TREE DATA STRUCTURES              ║
+     ╚═══════════════════════════════════════════════════════╝ -->
+<section class="module-section" id="module2">
+  <div class="module-badge">Module 02</div>
+  <h1 class="module-title">Advanced Tree Data Structures</h1>
+  <p class="module-intro">Trees are the backbone of algorithmic data structure design. This module covers the full spectrum: balanced BSTs (AVL and Red-Black), string structures (Suffix Trees, Tries), range query structures (Segment Trees, Sparse Tables), heap variants (Binomial, Fibonacci), integrity structures (Merkle Trees), and autocomplete applications.</p>
+
+  <!-- 2.1 AVL TREES -->
+  <div class="topic" id="avl-trees">
+    <div class="topic-header">
+      <div class="topic-number">2.1</div>
+      <h2>AVL Trees</h2>
+    </div>
+
+    <p>Named after Adelson-Velsky and Landis (1962), the AVL tree was the first self-balancing binary search tree. It maintains the property that for every node, the heights of its left and right subtrees differ by at most 1. This height constraint guarantees O(log n) for all operations.</p>
+
+    <h3>Balance Factor</h3>
+    <p>Each node stores a <strong>balance factor</strong> BF = height(left subtree) − height(right subtree). An AVL tree requires |BF| ≤ 1 for every node. After every insert or delete, we walk up the tree recomputing BFs and rebalancing using <em>rotations</em> wherever |BF| = 2.</p>
+
+    <div class="diagram"><span class="hl">AVL Balance Factors (BF = left_height - right_height):</span>
+
+           30 [BF=1]
+          /         \
+       20 [BF=1]   40 [BF=0]
+       /
+    10 [BF=0]
+
+Insert 5 → violates at node 20 (BF becomes 2):
+
+           30 [BF=2]
+          /         \
+       20 [BF=2]   40 [BF=0]
+       /
+    10 [BF=1]
+    /
+  5 [BF=0]
+
+Right rotation at 30 (left-left case):
+           20
+          /    \
+        10      30
+        /      /  \
+       5      (-)  40
+
+<span class="gr">Balanced! All BFs ≤ 1.</span></div>
+
+    <h3>Rotations</h3>
+    <p>There are four rotation cases, all O(1). The key insight: a rotation changes the local structure of the tree without violating the BST property, and reduces the height of the unbalanced subtree by exactly 1.</p>
+
+    <div class="table-wrap">
+    <table>
+      <thead><tr><th>Case</th><th>Imbalance Location</th><th>Fix</th></tr></thead>
+      <tbody>
+        <tr><td>Left-Left (LL)</td><td>Left child's left subtree is heavy</td><td>Single right rotation at node</td></tr>
+        <tr><td>Right-Right (RR)</td><td>Right child's right subtree is heavy</td><td>Single left rotation at node</td></tr>
+        <tr><td>Left-Right (LR)</td><td>Left child's right subtree is heavy</td><td>Left rotation at left child, then right rotation at node</td></tr>
+        <tr><td>Right-Left (RL)</td><td>Right child's left subtree is heavy</td><td>Right rotation at right child, then left rotation at node</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h3>Augmenting AVL Trees for k-th Smallest (Exam Q 11b)</h3>
+    <p>To find the k-th smallest element in O(log n) time, augment each AVL node with a <strong>subtree size</strong> field: <code>size[v] = 1 + size[left[v]] + size[right[v]]</code> (with size[NULL] = 0). This is called an <strong>Order-Statistic Tree</strong>.</p>
+
+    <p>To find the k-th smallest element starting from node v:</p>
+    <ol class="steps">
+      <li>Let r = size[left[v]] + 1 (rank of v itself, counting from 1).</li>
+      <li>If k = r, return the key at v — v is the answer.</li>
+      <li>If k &lt; r, recurse into the left subtree: return SELECT(left[v], k).</li>
+      <li>If k &gt; r, recurse into the right subtree: return SELECT(right[v], k − r).</li>
+    </ol>
+
+    <p>Each recursive call moves one level down the tree, so the total depth of recursion is O(log n). We must also update size fields during rotations — this is O(1) per rotation since we only recompute for nodes directly involved in the rotation.</p>
+
+    <div class="callout callout-math">
+      <strong>Why size updates during rotations are O(1):</strong><br>
+      A rotation involves 2–3 nodes. After a right rotation at node y with left child x:<br>
+      size[y] ← size[y] − size[x] + size[right[x]] + 1 (O(1) arithmetic)<br>
+      size[x] ← old_size[y] (unchanged total subtree).<br>
+      So augmenting with size fields adds only O(1) overhead to rotations.
+    </div>
+
+    <div class="complexity-row">
+      <div class="cx-badge cx-green"><span class="op-name">Search</span><span class="cx-val">O(log n)</span></div>
+      <div class="cx-badge cx-green"><span class="op-name">Insert</span><span class="cx-val">O(log n)</span></div>
+      <div class="cx-badge cx-green"><span class="op-name">Delete</span><span class="cx-val">O(log n)</span></div>
+      <div class="cx-badge cx-green"><span class="op-name">k-th Smallest</span><span class="cx-val">O(log n)</span></div>
+      <div class="cx-badge cx-blue"><span class="op-name">Height guarantee</span><span class="cx-val">≤ 1.44 log n</span></div>
+    </div>
+  </div>
+
+  <!-- 2.2 RED-BLACK TREES -->
+  <div class="topic" id="red-black">
+    <div class="topic-header">
+      <div class="topic-number">2.2</div>
+      <h2>Red-Black Trees</h2>
+    </div>
+
+    <p>Red-Black (RB) trees are a variant of balanced BST that relax the strict height constraint of AVL trees, allowing the tree to be up to 2× taller, in exchange for fewer rotations per operation. They are used in the Linux kernel's CFS scheduler, Java's TreeMap, and C++'s std::map.</p>
+
+    <h3>Red-Black Properties (All 5 Must Hold)</h3>
+    <ol class="steps">
+      <li>Every node is either red or black.</li>
+      <li>The root is black.</li>
+      <li>Every NULL leaf (sentinel) is black.</li>
+      <li>If a node is red, both its children are black. (No two consecutive reds.)</li>
+      <li>For each node, all simple paths from that node to descendant NULL leaves contain the same number of black nodes. (Black-height property.)</li>
+    </ol>
+
+    <p>These properties guarantee that the height is at most <strong>2 log₂(n+1)</strong> — the longest path (alternating red-black) is at most twice the shortest (all black).</p>
+
+    <h3>Implementing Without an Extra Color Bit (Exam Q3)</h3>
+    <p>The Boolean color field adds 1 bit (often padded to a whole byte or word) to each node. Can we store color information without this overhead? Yes, using <strong>pointer bit-stealing</strong>.</p>
+
+    <p>On modern 64-bit systems, dynamic memory allocation always returns word-aligned addresses (aligned to at least 4 or 8 bytes). This means the <strong>lowest 1–3 bits of every pointer are always 0</strong> in practice. We can steal one of these bits to encode the node's color.</p>
+
+    <div class="diagram"><span class="hl">Bit-Stealing for Red-Black Color:</span>
+
+Normal pointer (to a 4-byte aligned node):
+  Address: 0x...XYYY4  (lowest 2 bits = 00)
+
+Stolen-bit trick:
+  Store (address | 1) for RED nodes
+  Store (address | 0) for BLACK nodes
+  To read pointer: mask low 2 bits: (stored & ~0x3)
+  To read color:   extract low bit:  (stored & 0x1)
+
+<span class="cm">// C implementation:</span>
+<span class="kw">typedef</span> uintptr_t Node*;  <span class="cm">// store pointer + color bit</span>
+<span class="kw">#define</span> <span class="fn">COLOR</span>(p)  ((uintptr_t)(p) &amp; 1)
+<span class="kw">#define</span> <span class="fn">PTR</span>(p)    ((Node*)((uintptr_t)(p) &amp; ~1UL))
+<span class="kw">#define</span> <span class="fn">RED_PTR</span>(p)   ((Node*)((uintptr_t)(p) | 1))
+<span class="kw">#define</span> <span class="fn">BLACK_PTR</span>(p) ((Node*)((uintptr_t)(p) &amp; ~1UL))</div>
+
+    <p>An alternative approach, valid specifically for storing a <em>set of distinct keys</em> (as the question specifies), is to use the <strong>Left-Leaning Red-Black Tree (LLRB)</strong> variant by Robert Sedgewick. LLRB trees restrict red links to always lean left, which eliminates one of the four rotation cases and simplifies the invariants. In LLRB, you can implicitly encode color by the structural constraint — though in practice, the bit-stealing approach is more commonly implemented.</p>
+
+    <h3>AVL vs Red-Black: When to Use Which?</h3>
+    <div class="table-wrap">
+    <table>
+      <thead><tr><th>Property</th><th>AVL Tree</th><th>Red-Black Tree</th></tr></thead>
+      <tbody>
+        <tr><td>Height bound</td><td>≤ 1.44 log n</td><td>≤ 2 log n</td></tr>
+        <tr><td>Search speed</td><td>Faster (shorter)</td><td>Slightly slower</td></tr>
+        <tr><td>Insert/Delete rotations</td><td>Up to O(log n)</td><td>At most 3 rotations</td></tr>
+        <tr><td>Best for</td><td>Read-heavy workloads</td><td>Write-heavy workloads</td></tr>
+        <tr><td>Used in</td><td>Databases (lookups)</td><td>Linux kernel, Java, C++ STL</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+  <!-- 2.3 SUFFIX TREES & ARRAYS -->
+  <div class="topic" id="suffix-trees">
+    <div class="topic-header">
+      <div class="topic-number">2.3</div>
+      <h2>Suffix Trees &amp; Suffix Arrays</h2>
+    </div>
+
+    <p>Suffix trees and arrays are the cornerstone of modern string algorithms — substring search, longest common substring, pattern matching, and bioinformatics sequence alignment all rely on them. They allow you to preprocess a text once, then answer many queries efficiently.</p>
+
+    <h3>Suffix Trees</h3>
+    <p>The suffix tree of a string S of length n is a compressed trie of all suffixes of S. Edges are labeled with substrings (represented as index pairs), not single characters. The tree has n leaves (one per suffix) and at most n-1 internal nodes. Total space is O(n).</p>
+
+    <div class="diagram"><span class="hl">Suffix Tree for S = "banana$" ($ is a unique terminator):</span>
+
+Suffixes: banana$, anana$, nana$, ana$, na$, a$, $
+
+             root
+            / | \ \
+           /  |  \  \
+         $   a   b   n
+         |   |   |   |
+         6   |  ana  |
+          [na$ / \$] na$
+          /     \
+        [na$]   [na$]
+         5       1
+<span class="cm">// Leaf labels = starting positions of suffixes
+// Edge labels = substrings (stored as (start,len) pairs)</span>
+
+<span class="gr">Pattern matching "ana": Follow edges 'a', 'n', 'a' from root → subtree of leaves.
+All leaf positions in subtree = all occurrences of "ana" in S.</span></div>
+
+    <h3>Pattern Matching with Suffix Trees</h3>
+    <p>To find all occurrences of pattern P in text T: navigate from the root following characters of P. If we get stuck, P doesn't occur. If we reach a node, all leaves in that node's subtree are positions where P starts. Time: O(m + occ) where m = |P| and occ = number of occurrences.</p>
+
+    <h3>Ukkonen's Algorithm (Linear Time Construction)</h3>
+    <p>Naively building the suffix tree by inserting all n suffixes takes O(n²) time. Ukkonen's algorithm (1995) builds the suffix tree in O(n) time using three key observations: the extension rules, the end sentinel trick, and <strong>suffix links</strong>.</p>
+
+    <p>A <strong>suffix link</strong> from an internal node u labeled xα (where x is a single character and α is a string) points to the node labeled α (same suffix, but the first character is stripped). These links allow the algorithm to skip from the current processing point to the next relevant position without re-traversing paths already processed.</p>
+
+    <div class="callout callout-key">
+      <strong>How Suffix Links Enable Linear Time (Exam Q 12b):</strong> During construction, after extending a suffix at some internal node v with label xα, we need to find the node for α to process the next shorter suffix. Without suffix links, we'd traverse from root to find α — O(|α|) per step, O(n²) total. With a suffix link, we jump directly to the node for α in O(1). This is the crucial acceleration. At each phase of the algorithm, the total work is bounded because we follow at most one suffix link per extension, and each suffix link reduces the active depth by exactly 1.
+    </div>
+
+    <h3>Suffix Arrays</h3>
+    <p>A suffix array SA is an array of the starting indices of all suffixes of S, sorted in lexicographic order. More space-efficient than suffix trees (5n bytes vs 20–40n for suffix trees). The Longest Common Prefix (LCP) array stores the length of the longest common prefix between SA[i] and SA[i-1].</p>
+
+    <div class="diagram"><span class="hl">Suffix Array for S = "banana$":</span>
+
+Index: 0 1 2 3 4 5 6
+S:     b a n a n a $
+
+Suffixes sorted:                    SA value:
+  $                (index 6)   SA = [6, 5, 3, 1, 0, 4, 2]
+  a$               (index 5)
+  ana$             (index 3)   LCP = [-, 0, 1, 3, 0, 0, 2]
+  anana$           (index 1)        (LCP between adjacent sorted suffixes)
+  banana$          (index 0)
+  na$              (index 4)
+  nana$            (index 2)
+
+<span class="gr">Pattern "ana": Binary search on SA → occurrences at indices 1 and 3.</span></div>
+
+    <h3>FM-Index (Exam Q 15 — Sublinear Substring Search)</h3>
+    <p>The FM-Index (Ferragina-Manzini, 2000) combines the BWT, a rank data structure, and the suffix array to achieve compressed full-text indexing. It allows searching for pattern P of length m in O(m) time, using O(n) space (with high compression).</p>
+
+    <p>The key operation is <strong>backward search</strong>: start with the interval in the BWT/sorted suffix array corresponding to all suffixes beginning with P[m-1], then iteratively prepend characters P[m-2], P[m-3], ..., P[0] using rank queries. Each extension takes O(1) time with an appropriate data structure. This is how bioinformatics tools like Bowtie and BWA align DNA reads to reference genomes.</p>
+  </div>
+
+  <!-- 2.4 SEGMENT TREES -->
+  <div class="topic" id="segment-trees">
+    <div class="topic-header">
+      <div class="topic-number">2.4</div>
+      <h2>Segment Trees &amp; Range Queries</h2>
+    </div>
+
+    <p>A segment tree allows efficient range queries (sum, min, max, gcd) and point updates over an array. It is one of the most powerful and versatile data structures in competitive programming and databases.</p>
+
+    <h3>Structure</h3>
+    <p>Given array A[0..n-1], the segment tree is a complete binary tree where each node represents a contiguous subarray (segment) [l, r] and stores some aggregate value (e.g., sum) for A[l..r]. The root covers [0, n-1], and each node [l, r] has children [l, mid] and [mid+1, r] where mid = (l+r)/2. Leaves represent single elements.</p>
+
+    <div class="diagram"><span class="hl">Segment Tree for A = [3, 1, 4, 1, 5, 9] (sum queries):</span>
+
+              [0,5]=23
+             /          \
+        [0,2]=8        [3,5]=15
+        /     \        /      \
+     [0,1]=4 [2,2]=4 [3,4]=6 [5,5]=9
+     /    \          /    \
+  [0,0]=3 [1,1]=1 [3,3]=1 [4,4]=5
+
+<span class="gr">Query sum(1,4): range [1,4]</span>
+<span class="bl">  Node [1,1]=1 ✓ (fully inside)
+  Node [2,2]=4 ✓ (fully inside)
+  Node [3,4]=6 ✓ (fully inside)
+  Sum = 1 + 4 + 6 = 11</span>
+<span class="cm">  At most 4·log(n) nodes visited per query.</span></div>
+
+    <h3>Range Decomposition (Exam Q 12a)</h3>
+    <p>The critical theorem: any range [l, r] over an array of size n can be decomposed into at most O(log n) disjoint canonical segments in the segment tree. This is the fundamental reason segment trees are powerful.</p>
+
+    <div class="callout callout-math">
+      <strong>Proof that |canonical segments| = O(log n):</strong><br>
+      Consider the query traversal. At each tree node [a,b] with mid=(a+b)/2:<br>
+      - If [l,r] ⊇ [a,b]: this node is fully covered → we take it and stop (O(1) nodes from this subtree).<br>
+      - Otherwise: we recurse into children. At each level, we can "enter" a child only if the query boundary passes through it. Each level contributes at most 2 nodes. With O(log n) levels, total = O(2 log n) = O(log n). □
+    </div>
+
+    <h3>Lazy Propagation (Range Updates)</h3>
+    <p>Standard segment trees support point updates in O(log n). For <em>range updates</em> (e.g., add 5 to all elements in [l, r]), we use <strong>lazy propagation</strong>: store a "pending update" tag at each node and push it down only when we need to access children. This keeps range updates at O(log n).</p>
+
+    <pre><span class="cm">// Lazy segment tree: range add, range sum query</span>
+<span class="kw">long long</span> tree[4*MAXN], lazy[4*MAXN];
+
+<span class="kw">void</span> <span class="fn">push_down</span>(<span class="kw">int</span> node, <span class="kw">int</span> l, <span class="kw">int</span> r) {
+    <span class="kw">if</span> (lazy[node] != <span class="nm">0</span>) {
+        <span class="kw">int</span> mid = (l + r) / <span class="nm">2</span>;
+        tree[<span class="nm">2</span>*node]   += lazy[node] * (mid - l + <span class="nm">1</span>);
+        tree[<span class="nm">2</span>*node+<span class="nm">1</span>] += lazy[node] * (r - mid);
+        lazy[<span class="nm">2</span>*node]   += lazy[node];
+        lazy[<span class="nm">2</span>*node+<span class="nm">1</span>] += lazy[node];
+        lazy[node] = <span class="nm">0</span>;  <span class="cm">// clear pending update</span>
+    }
+}<span class="lang-label">C</span></pre>
+
+    <div class="complexity-row">
+      <div class="cx-badge cx-green"><span class="op-name">Build</span><span class="cx-val">O(n)</span></div>
+      <div class="cx-badge cx-green"><span class="op-name">Point Update</span><span class="cx-val">O(log n)</span></div>
+      <div class="cx-badge cx-green"><span class="op-name">Range Query</span><span class="cx-val">O(log n)</span></div>
+      <div class="cx-badge cx-green"><span class="op-name">Range Update (lazy)</span><span class="cx-val">O(log n)</span></div>
+      <div class="cx-badge cx-blue"><span class="op-name">Space</span><span class="cx-val">O(n)</span></div>
+    </div>
+  </div>
+
+  <!-- 2.5 SPARSE TABLES -->
+  <div class="topic" id="sparse-table">
+    <div class="topic-header">
+      <div class="topic-number">2.5</div>
+      <h2>Sparse Tables for Static Range Queries</h2>
+    </div>
+
+    <p>When the array is static (no updates) and we want range minimum (or maximum or GCD) queries, a <strong>sparse table</strong> achieves O(1) query time with O(n log n) preprocessing — faster than segment trees.</p>
+
+    <h3>Construction</h3>
+    <p>Let <code>ST[i][j]</code> = the minimum of A[i..i+2^j-1] (a range of length 2^j starting at i). We precompute this for all valid i and j = 0..⌊log n⌋. Base case: <code>ST[i][0] = A[i]</code>. Recurrence: <code>ST[i][j] = min(ST[i][j-1], ST[i+2^{j-1}][j-1])</code>.</p>
+
+    <h3>Query</h3>
+    <p>For range minimum query [l, r]: let k = ⌊log₂(r − l + 1)⌋. The answer is <code>min(ST[l][k], ST[r − 2^k + 1][k])</code>. These two ranges of length 2^k overlap but together cover [l, r]. Since we're taking minimum, duplicates don't matter. Time: O(1).</p>
+
+    <div class="callout callout-key">
+      <strong>Why This Works:</strong> The idempotent property of min (and max, GCD, LCM) means that including an element twice doesn't change the answer. This is the key difference from sum queries, where overlapping ranges would give wrong answers. For sum, you must use segment trees or prefix sum arrays.
+    </div>
+  </div>
+
+  <!-- 2.6 BINOMIAL HEAPS -->
+  <div class="topic" id="binomial-heap">
+    <div class="topic-header">
+      <div class="topic-number">2.6</div>
+      <h2>Binomial Heaps — The Binary Arithmetic Analogy</h2>
+    </div>
+
+    <p>A binomial heap is a collection of <em>binomial trees</em> satisfying the min-heap property. Its most distinctive feature is that the Union (merge) operation runs in O(log n) — making it ideal for priority queues that need to merge frequently.</p>
+
+    <h3>Binomial Trees</h3>
+    <p>The binomial tree Bₖ is defined recursively: B₀ is a single node. Bₖ consists of two Bₖ₋₁ trees, where the root of one becomes the leftmost child of the root of the other. Key properties: Bₖ has 2^k nodes; height k; the root has k children which are B₀, B₁, ..., Bₖ₋₁.</p>
+
+    <div class="diagram"><span class="hl">Binomial Trees:</span>
+
+B0:   o     B1:   o      B2:   o          B3:      o
+             |          / \             / | \ \
+             o         o   o           o  o   o   o
+                       |              |      |
+                       o             o      o o
+                                            |
+                                            o
+<span class="cm">B0: 1 node  |  B1: 2 nodes  |  B2: 4 nodes  |  B3: 8 nodes</span>
+<span class="cm">Bk has exactly 2^k nodes and height exactly k.</span>
+<span class="cm">C(k,d) nodes at depth d — hence the name "binomial."</span></div>
+
+    <h3>Binomial Heap Structure</h3>
+    <p>A binomial heap of n elements contains at most one Bₖ tree for each k, corresponding to the binary representation of n. For example, if n = 13 = 1101₂, the heap contains trees B₃, B₂, and B₀ (having 8 + 4 + 1 = 13 nodes).</p>
+
+    <h3>Union = Binary Addition (Exam Q4, Part 1)</h3>
+    <p>To merge two binomial heaps H₁ and H₂ (with n₁ and n₂ elements): process trees of increasing degree, merging trees of equal degree like adding binary digits. When two trees of degree k merge, the smaller root becomes the root of the combined tree (heap property), creating a tree of degree k+1 — exactly like a carry bit in binary addition.</p>
+
+    <div class="diagram"><span class="hl">Union Analogy: Binary Addition</span>
+
+H1 has trees: B0, B2     →  binary: 101  (n₁ = 1+4 = 5)
+H2 has trees: B1, B2     →  binary: 110  (n₂ = 2+4 = 6)
+
+Binary addition: 101 + 110 = 1011
+
+Result heap has: B0, B1, B3    (n = 1+2+8 = 11) ✓
+
+<span class="bl">Step by step:</span>
+Degree 0: H1 has B0, H2 has none → carry B0 to result.
+Degree 1: H1 has none, H2 has B1 → carry B1 to result.
+Degree 2: H1 has B2, H2 has B2 → LINK them (smaller root wins) → carry to degree 3.
+Degree 3: only the carry → place B3 in result.
+
+<span class="gr">Analogous to: 1+0=1(carry0), 0+1=1(carry0), 1+1=0(carry1), 0+0+1=1(carry0).</span></div>
+
+    <h3>Insertion = Incrementing a Binary Counter (Exam Q4, Part 2)</h3>
+    <p>Inserting a single key creates a B₀ tree (a singleton) and then unions it with the existing heap. This is exactly like incrementing a binary number by 1: start at the least significant bit, flip 1→0 until you find a 0, then flip that 0→1. The number of bit flips (tree links) is amortized O(1) because the total flips across n insertions is at most 2n (same argument as binary counter increment).</p>
+
+    <div class="callout callout-math">
+      <strong>Amortized Analysis of Binomial Heap Insertion:</strong><br>
+      Use potential Φ = number of trees in the heap (= number of 1-bits in binary rep of n).<br>
+      Insert: actual cost = k+1 link ops (k = number of carries). ΔΦ = 1 − k.<br>
+      Amortized cost = (k+1) + (1−k) = 2 = O(1).<br>
+      Total for n inserts: O(n) amortized, O(log n) worst case (all bits are 1 → n = 2^k − 1).
+    </div>
+
+    <div class="complexity-row">
+      <div class="cx-badge cx-green"><span class="op-name">Find-Min</span><span class="cx-val">O(log n)</span></div>
+      <div class="cx-badge cx-green"><span class="op-name">Union</span><span class="cx-val">O(log n)</span></div>
+      <div class="cx-badge cx-gold"><span class="op-name">Insert (amortized)</span><span class="cx-val">O(1)</span></div>
+      <div class="cx-badge cx-green"><span class="op-name">Extract-Min</span><span class="cx-val">O(log n)</span></div>
+      <div class="cx-badge cx-green"><span class="op-name">Decrease-Key</span><span class="cx-val">O(log n)</span></div>
+    </div>
+  </div>
+
+  <!-- 2.7 FIBONACCI HEAPS -->
+  <div class="topic" id="fibonacci-heap">
+    <div class="topic-header">
+      <div class="topic-number">2.7</div>
+      <h2>Fibonacci Heaps</h2>
+    </div>
+
+    <p>Fibonacci heaps, introduced by Fredman and Tarjan in 1987, push the amortized bounds even further. They achieve O(1) amortized time for Insert, Find-Min, Union, and Decrease-Key — making Dijkstra's algorithm run in O(V log V + E) with a Fibonacci heap, compared to O((V+E) log V) with a binary heap.</p>
+
+    <h3>Structure</h3>
+    <p>A Fibonacci heap is a collection of heap-ordered trees (not necessarily binomial) maintained in a circular doubly linked list. Nodes have: key, degree (number of children), a mark bit (used in decrease-key), and pointers to parent, child, left sibling, right sibling.</p>
+
+    <h3>Lazy Operations</h3>
+    <p>Fibonacci heaps are lazy: they delay work during inserts, unions, and decrease-keys, batching cleanup into Extract-Min. Insert simply adds a new tree to the root list (O(1)). Union just concatenates two root lists (O(1)). Decrease-Key cuts a node from its parent and adds it to the root list (O(1) amortized — the mark bit controls cascading cuts).</p>
+
+    <h3>Consolidation</h3>
+    <p>Extract-Min removes the minimum root, then runs <strong>consolidation</strong>: ensures no two trees in the root list have the same degree, by linking equal-degree trees (as in binomial heap union). This takes O(D(n) + t) amortized where D(n) = O(log n) and t = number of trees before consolidation. The amortized cost of Extract-Min is O(log n).</p>
+
+    <div class="callout callout-key">
+      <strong>Why Fibonacci Numbers Appear:</strong> The degree D(n) = O(log n). To prove this, one shows that the minimum size of a Fibonacci heap tree of degree k is Fₖ₊₂ ≥ φᵏ (where φ = (1+√5)/2 ≈ 1.618 is the golden ratio). This is why the structure is called a "Fibonacci heap." The mark bits (cascading cut mechanism) ensure trees don't get too small after decrease-key operations, maintaining the Fibonacci size lower bound.
+    </div>
+
+    <div class="complexity-row">
+      <div class="cx-badge cx-green"><span class="op-name">Insert</span><span class="cx-val">O(1) amortized</span></div>
+      <div class="cx-badge cx-green"><span class="op-name">Find-Min</span><span class="cx-val">O(1)</span></div>
+      <div class="cx-badge cx-green"><span class="op-name">Union</span><span class="cx-val">O(1)</span></div>
+      <div class="cx-badge cx-green"><span class="op-name">Decrease-Key</span><span class="cx-val">O(1) amortized</span></div>
+      <div class="cx-badge cx-gold"><span class="op-name">Extract-Min</span><span class="cx-val">O(log n) amortized</span></div>
+    </div>
+  </div>
+
+  <!-- 2.8 MERKLE TREES -->
+  <div class="topic" id="merkle-trees">
+    <div class="topic-header">
+      <div class="topic-number">2.8</div>
+      <h2>Merkle Trees (Hash Trees)</h2>
+    </div>
+
+    <p>A Merkle tree is a binary tree of cryptographic hashes. Leaves contain hashes of data blocks, and each internal node contains the hash of the concatenation of its children's hashes. This structure enables efficient, secure verification of data integrity — used in Bitcoin, Git, IPFS, and certificate transparency logs.</p>
+
+    <div class="diagram"><span class="hl">Merkle Tree for 4 data blocks D1, D2, D3, D4:</span>
+
+                    Root = H(H12 || H34)
+                   /                     \
+         H12 = H(H1 || H2)       H34 = H(H3 || H4)
+         /         \              /            \
+   H1=hash(D1) H2=hash(D2)  H3=hash(D3) H4=hash(D4)
+       │             │            │             │
+      D1            D2           D3            D4
+
+<span class="cm">|| denotes concatenation, H() denotes a cryptographic hash function (e.g., SHA-256)</span>
+
+<span class="gr">To verify D2 is valid, you need: H1, H34, and the root.</span>
+<span class="gr">  1. Compute H2 = hash(D2)</span>
+<span class="gr">  2. Compute H12 = H(H1 || H2)  ← H1 is given (Merkle proof)</span>
+<span class="gr">  3. Compute Root' = H(H12 || H34) ← H34 is given</span>
+<span class="gr">  4. If Root' == stored Root → D2 is authentic. Only log₂(n) hashes needed!</span></div>
+
+    <h3>Operations (Exam Q 11)</h3>
+    <p><strong>Construction:</strong> Compute hashes of all n data blocks (leaves), then work bottom-up, computing parent hashes by hashing pairs. Each of the n−1 internal nodes requires one hash operation. Total: O(n). If n is not a power of 2, duplicate the last leaf to pad.</p>
+
+    <p><strong>Block Integrity Verification:</strong> To verify block i out of n: provide a "Merkle proof" — the sibling hashes along the path from leaf i to the root. There are ⌈log₂ n⌉ siblings. The verifier recomputes the root hash and compares. Time: O(log n).</p>
+
+    <p><strong>Corrupt Block Detection:</strong> Compare stored root with freshly computed root. If they differ, a block is corrupt. Binary search by comparing left and right subtree roots: if left subtree root mismatches, descend left; otherwise right. Finds the corrupt block in O(log n) steps.</p>
+
+    <h3>Applications</h3>
+    <p><strong>Bitcoin:</strong> Transactions in a block are the leaves. The block header stores only the Merkle root. Light clients (SPV wallets) can verify a transaction with only O(log n) hashes rather than downloading the entire block.</p>
+    <p><strong>Git:</strong> Every commit's tree is a Merkle DAG. Git's content-addressable storage ensures that if any file changes, the commit hash changes, detecting any tampering.</p>
+
+    <div class="complexity-row">
+      <div class="cx-badge cx-green"><span class="op-name">Build</span><span class="cx-val">O(n)</span></div>
+      <div class="cx-badge cx-green"><span class="op-name">Verify block</span><span class="cx-val">O(log n)</span></div>
+      <div class="cx-badge cx-green"><span class="op-name">Detect corruption</span><span class="cx-val">O(log n)</span></div>
+      <div class="cx-badge cx-blue"><span class="op-name">Proof size</span><span class="cx-val">O(log n) hashes</span></div>
+    </div>
+  </div>
+
+  <!-- 2.9 TRIES -->
+  <div class="topic" id="tries">
+    <div class="topic-header">
+      <div class="topic-number">2.9</div>
+      <h2>Tries &amp; Autocomplete</h2>
+    </div>
+
+    <p>A trie (from re<em>trie</em>val, pronounced "try") is a tree structure where each node represents a prefix of some stored string. The path from root to any node spells out that prefix. Tries are perfectly suited for autocomplete, spell checking, and IP routing.</p>
+
+    <h3>Structure</h3>
+    <p>Each node has up to σ children (σ = alphabet size). For lowercase English, σ = 26. Insert and search take O(m) time where m is the length of the string — independent of how many strings are stored.</p>
+
+    <div class="diagram"><span class="hl">Trie storing: "apple", "app", "apt", "ball"</span>
+
+root
+├── 'a' ──▶ node
+│           ├── 'p' ──▶ node [END: "app"]
+│           │           ├── 'p' ──▶ node
+│           │           │           └── 'l' ──▶ node
+│           │           │                       └── 'e' ──▶ [END: "apple"]
+│           │           └── 't' ──▶ [END: "apt"]
+└── 'b' ──▶ node
+            └── 'a' ──▶ node
+                        └── 'l' ──▶ node
+                                    └── 'l' ──▶ [END: "ball"]
+
+<span class="gr">Autocomplete("ap"): follow 'a'→'p', then collect all END nodes in subtree.
+Result: {"app", "apple", "apt"}</span></div>
+
+    <h3>Compressed Tries (Patricia Trees)</h3>
+    <p>If a trie node has only one child, it wastes space. In a <strong>Patricia trie</strong> (also called a radix tree or compressed trie), we collapse such chains: edges are labeled with strings (not single characters). This reduces the number of nodes to O(n) where n is the number of stored strings, regardless of string lengths.</p>
+
+    <h3>Autocomplete Implementation</h3>
+    <p>For each internal node, store the "best" completions (e.g., top-k by popularity). Then autocomplete is a single trie traversal followed by reading the precomputed list — O(m + k) where m = prefix length. This is the technique used by Google Search and every modern search box.</p>
+
+    <div class="complexity-row">
+      <div class="cx-badge cx-green"><span class="op-name">Insert string of length m</span><span class="cx-val">O(m)</span></div>
+      <div class="cx-badge cx-green"><span class="op-name">Search string of length m</span><span class="cx-val">O(m)</span></div>
+      <div class="cx-badge cx-green"><span class="op-name">Prefix search</span><span class="cx-val">O(m + results)</span></div>
+      <div class="cx-badge cx-blue"><span class="op-name">Space</span><span class="cx-val">O(total string length)</span></div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ╔═══════════════════════════════════════════════════════╗
+     ║  MODULE 3: SPECIALIZED DATA STRUCTURES               ║
+     ╚═══════════════════════════════════════════════════════╝ -->
+<section class="module-section" id="module3">
+  <div class="module-badge">Module 03</div>
+  <h1 class="module-title">Specialized Data Structures</h1>
+  <p class="module-intro">This module explores data structures designed for specific problem domains: spatial indexing (Quadtrees, KD-Trees, R-Trees), temporal data (persistence and retroactivity), adaptive search (Skip Lists, Tango Trees), and information retrieval (approximate nearest neighbor, posting list intersection).</p>
+
+  <!-- 3.1 QUADTREES -->
+  <div class="topic" id="quadtrees">
+    <div class="topic-header">
+      <div class="topic-number">3.1</div>
+      <h2>Quadtrees</h2>
+    </div>
+
+    <p>A quadtree recursively subdivides 2D space into four equal quadrants. Unlike binary trees which split in one dimension, quadtrees split in two dimensions simultaneously, making them natural for 2D spatial data.</p>
+
+    <h3>Types of Quadtrees</h3>
+    <p>The most common variant is the <strong>Point Quadtree</strong>: each internal node corresponds to a 2D point, and the four children correspond to the four quadrants (NW, NE, SW, SE) defined by that point's coordinates. The <strong>Point-Region (PR) Quadtree</strong> instead divides space uniformly — regions are split when they contain more than one point.</p>
+
+    <div class="diagram"><span class="hl">Point-Region Quadtree for points: A(2,7), B(8,1), C(6,5), D(3,3)</span>
+
+Bounding region: [0,10] × [0,10]. Split at (5,5):
+
+              NW              NE
+         [0,5]×[5,10]    [5,10]×[5,10]
+         Contains: A(2,7)  Contains: C(6,5)→split further
+
+              SW              SE
+         [0,5]×[0,5]     [5,10]×[0,5]
+         Contains: D(3,3)  Contains: B(8,1)
+
+Tree:
+          root [0,10]×[0,10]
+         / |  |  \
+        NW NE SW  SE
+        A  C  D   B
+           (split if multiple points)</div>
+
+    <h3>Range Queries</h3>
+    <p>To find all points in rectangle R: start at root, check if R overlaps with this node's region. If no overlap, skip. If overlap, check points in this node, then recurse into children whose regions overlap R. Expected time for n uniformly distributed points: O(√n + k) for k results.</p>
+
+    <h3>Applications in GIS and Games</h3>
+    <p>Quadtrees are used for map tiling (geographic information systems), image compression (quadtree image decomposition), collision detection in 2D games, and spatial database indexing for points and regions.</p>
+  </div>
+
+  <!-- 3.2 KD-TREES -->
+  <div class="topic" id="kd-trees">
+    <div class="topic-header">
+      <div class="topic-number">3.2</div>
+      <h2>KD-Trees (k-dimensional Trees)</h2>
+    </div>
+
+    <p>A KD-tree is a binary tree that partitions k-dimensional space using hyperplane splits. At each level of the tree, a different dimension is used for splitting, cycling through dimensions 0, 1, ..., k-1 as you go down.</p>
+
+    <h3>Construction</h3>
+    <p>At each level, choose a splitting dimension (cycle through 0, 1, ..., k-1). Split at the <em>median</em> value in that dimension (for a balanced tree). Points with coordinate less than the median go left, others go right. Construction time: O(n log²n) with median-finding, or O(n log n) with linear-time median.</p>
+
+    <div class="diagram"><span class="hl">2D KD-Tree construction for points: (3,6),(1,9),(4,2),(5,7),(7,4),(9,1):</span>
+
+Level 0 (split on x): median_x = 5, split at x=5.
+  Left (x≤5): (3,6),(1,9),(4,2),(5,7)
+  Right (x>5): (7,4),(9,1)
+
+Level 1 (split on y):
+  Left subtree: median_y = 6, split at y=6.
+    LL (y≤6): (4,2)        LR (y>6): (3,6),(1,9),(5,7)
+  Right subtree: median_y = 4, split at y=4.
+    RL (y≤4): (9,1)        RR (y>4): (7,4)
+
+<span class="bl">Tree structure:</span>
+            (5,7) [split x=5]
+           /            \
+      (3,6) [split y=6]   (7,4) [split y=4]
+      /       \           /        \
+  (4,2)  (1,9),(5,7)  (9,1)      leaf</div>
+
+    <h3>Nearest Neighbor Search</h3>
+    <p>This is KD-trees' killer application. To find the point nearest to query point q: traverse the tree as if inserting q, keeping track of the best (nearest) point found so far. At each node, check if the other branch could possibly contain a closer point (by computing the distance from q to the splitting hyperplane). If the hyperplane distance exceeds the current best distance, prune that subtree. Expected time: O(log n) for uniformly distributed data in low dimensions.</p>
+
+    <h3>KD-Trees vs Quadtrees (Exam Q5 — Full Comparison)</h3>
+    <div class="table-wrap">
+    <table>
+      <thead><tr><th>Aspect</th><th>KD-Tree</th><th>Quadtree</th></tr></thead>
+      <tbody>
+        <tr><td>Space partitioning</td><td>Adaptive: splits at data median. Regions are not equal-sized but balanced by point count.</td><td>Fixed: always divides into 4 equal quadrants, regardless of data distribution.</td></tr>
+        <tr><td>Tree balance</td><td>Balanced by construction (O(log n) height)</td><td>Can be arbitrarily deep for clustered data</td></tr>
+        <tr><td>Nearest Neighbor</td><td>Excellent in low dimensions (2D, 3D, 4D)</td><td>Good in 2D, less efficient</td></tr>
+        <tr><td>Range queries</td><td>Good; adaptive splits help</td><td>Very good in 2D; natural region alignment</td></tr>
+        <tr><td>High dimensions</td><td>Suffers from curse of dimensionality at d&gt;8</td><td>Suffers even more (2^d children per node)</td></tr>
+        <tr><td>GIS raster data</td><td>Less natural</td><td>Excellent — maps naturally to pixel grids</td></tr>
+        <tr><td>GIS point/vector data</td><td>Better — adaptive to point distribution</td><td>Adequate</td></tr>
+        <tr><td>Dynamic insertions</td><td>Can become unbalanced; use balanced variants</td><td>Easy — just subdivide when a cell overflows</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <div class="callout callout-key">
+      <strong>Bottom Line for GIS:</strong> Use Quadtrees for raster/map tiles, image-like data, or when the spatial domain has natural quadrant boundaries (like geographic grids). Use KD-trees for point cloud data, nearest-neighbor queries, and when the data is non-uniform in distribution. In practice, R-Trees (see next topic) dominate GIS applications because they handle rectangular objects natively.
+    </div>
+  </div>
+
+  <!-- 3.3 R-TREES -->
+  <div class="topic" id="r-trees">
+    <div class="topic-header">
+      <div class="topic-number">3.3</div>
+      <h2>R-Trees for Collision Detection</h2>
+    </div>
+
+    <p>R-Trees, introduced by Guttman (1984), are the spatial indexing structure of choice for rectangles, polygons, and other extended objects. They generalize B-trees to multiple dimensions. Each node stores a "minimum bounding rectangle" (MBR) that tightly contains all objects in its subtree.</p>
+
+    <h3>Structure</h3>
+    <p>Each leaf node contains actual spatial objects along with their MBRs. Each internal node contains MBRs of its children's MBRs (the MBR of MBRs). The key invariant: any point inside a child's MBR must be in the parent's MBR. Nodes have between M/2 and M entries (for page-based storage).</p>
+
+    <div class="diagram"><span class="hl">R-Tree: Objects as rectangles, grouped by proximity</span>
+
+Objects: R1=(1,1,3,3), R2=(2,2,5,5), R3=(7,1,9,4), R4=(6,5,9,8)
+
+     Root
+    /      \
+  G1        G2
+  (MBR:      (MBR:
+  [1,5]×     [6,9]×
+  [1,5])     [1,8])
+  /  \       /   \
+ R1  R2    R3   R4
+
+<span class="gr">Query "find all objects overlapping (2,2,4,6)":</span>
+<span class="gr">  Check Root's MBR → full overlap</span>
+<span class="gr">  Check G1's MBR → overlaps! descend to R1, R2</span>
+<span class="gr">    R1 overlaps? (1,1,3,3) ∩ (2,2,4,6) = (2,2,3,3) → YES</span>
+<span class="gr">    R2 overlaps? (2,2,5,5) ∩ (2,2,4,6) = (2,2,4,5) → YES</span>
+<span class="gr">  Check G2's MBR (6,9)×(1,8) → does NOT overlap (2,2,4,6) → PRUNE entire branch</span></div>
+
+    <h3>Collision Detection (Exam Q 13)</h3>
+    <p>Each game object is represented by its axis-aligned bounding box (AABB). Store all AABBs in an R-Tree. To detect collisions for object O:</p>
+    <ol class="steps">
+      <li>Traverse the R-Tree. At each internal node, check if O's AABB overlaps with the node's MBR. If no overlap, prune the entire subtree — no object in there can collide with O.</li>
+      <li>If overlap, descend into children and repeat.</li>
+      <li>At leaf nodes, check actual AABB overlap with O's AABB.</li>
+      <li>Return all overlapping objects.</li>
+    </ol>
+
+    <div class="callout callout-math">
+      <strong>Time Complexity of R-Tree Collision Query:</strong><br>
+      In the best case (most subtrees pruned): O(log n) — similar to 1D range search.<br>
+      Typical case with k results: O((log n + k) · M) where M is node fanout.<br>
+      Worst case (everything overlaps): O(n).<br>
+      In practice for game physics (sparse collision environment): O(√n + k) for uniformly distributed objects.
+    </div>
+  </div>
+
+  <!-- 3.4 PERSISTENCE & RETROACTIVITY -->
+  <div class="topic" id="persistence">
+    <div class="topic-header">
+      <div class="topic-number">3.4</div>
+      <h2>Persistent Data Structures &amp; Retroactivity</h2>
+    </div>
+
+    <p>Persistent data structures preserve previous versions after updates. They are fundamental to functional programming, version control systems, computational geometry, and the colored ancestor problem from the exam.</p>
+
+    <h3>Types of Persistence</h3>
+    <p><strong>Partial Persistence:</strong> You can query all past versions, but only update the most recent version. Think of it as a timeline you can read but only extend at the end. Most structures can be made partially persistent.</p>
+    <p><strong>Full Persistence:</strong> You can both query and update any past version, creating a version tree (branching history). This is what Git does — you can branch from any commit.</p>
+    <p><strong>Confluent Persistence:</strong> You can merge (combine) two versions. This is the hardest to achieve efficiently and corresponds to DAG-structured version histories.</p>
+
+    <h3>Path Copying (Node Copying)</h3>
+    <p>The standard technique for making tree structures persistent. When updating node v, instead of modifying v in place, create a copy of v with the update applied. Then recursively update v's parent (which now needs to point to the new copy), copying it too. Continue up to the root. Each update creates O(log n) new nodes (one copy per level of the tree), and old roots remain valid (they still point to the old, unmodified nodes).</p>
+
+    <div class="diagram"><span class="hl">Persistent BST via Path Copying — Insert 7 into {3,5,9}:</span>
+
+Version 1:      5          Version 2:      5' (new copy)
+               / \                        / \
+              3   9                      3   9' (new copy)
+                                            /
+                                           7 (new node)
+
+<span class="cm">Root of v1 still valid → v1 can still be queried for {3,5,9}</span>
+<span class="cm">Root of v2 points to v2 tree → {3,5,7,9}</span>
+<span class="cm">Total new nodes: O(log n) per update (just the path from insert point to root)</span></div>
+
+    <h3>Colored Ancestor Problem (Exam Q6)</h3>
+    <p>We have a rooted tree T where each node can have multiple colors. We support three operations across versions: <code>colour(v, c)</code> adds color c to node v, <code>uncolour(v, c)</code> removes it, and <code>query(v, c)</code> finds the closest ancestor of v (including v) that has color c.</p>
+
+    <p>One efficient approach: maintain a separate persistent structure for each color c — specifically a persistent array indexed by DFS entry time (Euler tour). For each color c, maintain a sorted set of nodes currently having color c. The query "closest ancestor with color c" reduces to: find the deepest node in the set of c-colored nodes that is an ancestor of v. Using the Euler tour, "is u an ancestor of v" is equivalent to "entry[u] ≤ entry[v] ≤ exit[u]". Persistent segment trees (one per version) can answer these queries in O(log n) per query, O(log n) per update, O(n log n) total space.</p>
+
+    <h3>Retroactivity</h3>
+    <p>Retroactivity goes further than persistence: instead of only adding operations, you can <em>insert or delete operations in the past</em> and have the changes propagate forward to the present. This is more powerful and harder to achieve. For priority queues, retroactive solutions exist that handle insertions and deletions at any past time in O(√n) time per operation. Retroactivity is a research-level topic; understanding the concept and its distinction from persistence is the exam-level expectation.</p>
+  </div>
+
+  <!-- 3.5 SKIP LISTS -->
+  <div class="topic" id="skip-lists">
+    <div class="topic-header">
+      <div class="topic-number">3.5</div>
+      <h2>Skip Lists</h2>
+    </div>
+
+    <p>Skip lists, invented by William Pugh in 1990, achieve O(log n) expected search, insert, and delete without the complexity of tree rotations. They are the data structure behind Redis's sorted sets and LevelDB's memtable.</p>
+
+    <h3>Structure</h3>
+    <p>A skip list is a hierarchy of linked lists. Level 0 is the complete sorted list of elements. Each higher level is a sparser subset, with each element promoted to level i with probability p (typically 0.5). Pointers at each level skip over many elements, allowing logarithmic search.</p>
+
+    <div class="diagram"><span class="hl">Skip List for elements {1, 2, 3, 4, 5, 6, 7, 8} (p=0.5):</span>
+
+Level 3: -∞ ─────────────────────────────────── 6 ─── +∞
+Level 2: -∞ ─────────────── 4 ─────────────── 6 ─── +∞
+Level 1: -∞ ─── 2 ─────── 4 ─────── 6 ─── 8 ─── +∞
+Level 0: -∞ ─ 1 ─ 2 ─ 3 ─ 4 ─ 5 ─ 6 ─ 7 ─ 8 ─ +∞
+
+<span class="gr">Search for 7:</span>
+<span class="bl">  Start at top-left (-∞, Level 3).</span>
+<span class="bl">  Level 3: -∞→6 (6&lt;7? yes, move right) → 6→+∞ (∞&gt;7? stop, drop down)</span>
+<span class="bl">  Level 2: 6→+∞ (stop, drop down)</span>
+<span class="bl">  Level 1: 6→8 (8&gt;7? stop, drop down)</span>
+<span class="bl">  Level 0: 6→7 (found!)</span>
+<span class="cm">  Total comparisons: ~log n, not n.</span></div>
+
+    <h3>Expected Number of Levels (Exam Q 13b, Part i)</h3>
+    <p>An element is promoted to level i (0-indexed) with probability pⁱ. An element reaches level i if it was promoted at each of levels 0, 1, ..., i-1. So P(element reaches level i) = pⁱ.</p>
+
+    <div class="callout callout-math">
+      <strong>Derivation: Expected Maximum Level in Skip List with n Elements</strong><br><br>
+      P(element reaches level ≥ L) = p^L.<br>
+      P(at least one of n elements reaches level ≥ L) ≤ n · p^L (union bound).<br>
+      For this to be small (say &lt; 1), we need: n · p^L &lt; 1 → p^L &lt; 1/n → L &gt; log_{1/p}(n).<br><br>
+      Setting p = 0.5: L_max = log₂(n). Expected number of levels = O(log n).<br><br>
+      More precisely: E[max level] = log_{1/p}(n) + O(1) ≈ log₂(n) for p=0.5.
+    </div>
+
+    <h3>Expected Search Time O(log n) (Exam Q 13b, Part ii)</h3>
+    <p>To bound search time, we analyze backward from the found element. At each step of the backward walk, we either go up a level (with probability p) or go left (with probability 1−p). The expected number of left steps at level i before going up is (1−p)/p. Summing over all log n levels, the expected total steps backwards is O(log n)/p = O(log n). Therefore the expected search time is O(log n).</p>
+
+    <div class="callout callout-math">
+      <strong>Formal Bound via Backwards Analysis:</strong><br>
+      Let C(k) = expected cost to climb k levels in the backward walk.<br>
+      C(0) = 0.<br>
+      C(k) = (1-p)(1 + C(k)) + p(1 + C(k-1))  [didn't go up, or went up]<br>
+      Solving: C(k) = k/p.<br>
+      Total cost = C(log_{1/p}(n)) = log_{1/p}(n)/p = log n/p = O(log n) for constant p.
+    </div>
+
+    <div class="complexity-row">
+      <div class="cx-badge cx-green"><span class="op-name">Search</span><span class="cx-val">O(log n) expected</span></div>
+      <div class="cx-badge cx-green"><span class="op-name">Insert</span><span class="cx-val">O(log n) expected</span></div>
+      <div class="cx-badge cx-green"><span class="op-name">Delete</span><span class="cx-val">O(log n) expected</span></div>
+      <div class="cx-badge cx-blue"><span class="op-name">Space</span><span class="cx-val">O(n) expected</span></div>
+      <div class="cx-badge cx-gold"><span class="op-name">Advantage</span><span class="cx-val">Simple to implement, concurrent-friendly</span></div>
+    </div>
+  </div>
+
+  <!-- 3.6 TANGO TREES -->
+  <div class="topic" id="tango-trees">
+    <div class="topic-header">
+      <div class="topic-number">3.6</div>
+      <h2>Tango Trees &amp; Splay Trees</h2>
+    </div>
+
+    <h3>Splay Trees (Exam Q 14b)</h3>
+    <p>A splay tree is a self-adjusting BST: every access (search, insert, delete) <em>splays</em> the accessed node to the root via a sequence of rotations. The splay operation uses three cases: zig (single rotation), zig-zig (two rotations in the same direction), and zig-zag (two rotations in opposite directions). Amortized O(log n) per operation.</p>
+
+    <p>The key property of splay trees is the <strong>Working Set Property</strong>: an element accessed t steps ago costs O(log t) to access. This means recently used elements are near the root and cheap to access. This is optimal for access patterns that are non-uniform or repetitive.</p>
+
+    <div class="exam-box">
+      <div class="exam-label">Exam Q 14b — Access Sequence 1,2,3,2,3,2,3,4</div>
+      <p>The sequence accesses 2 and 3 repeatedly. A splay tree handles this optimally: after the first access of 2, it splays 2 to the root. The next access of 3 brings 3 to the root (with 2 as a child). Subsequent accesses of 2 and 3 alternate between the root and its child — O(1) per access after the initial O(log n) setup. Total cost: O(n + log n) for the sequence, much better than the O(n log n) a static BST would cost.</p>
+      <p><strong>Strategy Name:</strong> Splay Tree. <strong>Why it works:</strong> The splay operation brings hot elements to the top of the tree, so frequently accessed elements become O(1) to access. The zig-zag and zig-zig rotations ensure amortized balance while still prioritizing recent accesses.</p>
+    </div>
+
+    <h3>Tango Trees</h3>
+    <p>Tango trees, introduced by Demaine et al. (2004), are the first BST that is provably O(log log n)-competitive with any offline BST algorithm. They achieve this by partitioning the access tree into <em>preferred paths</em> and organizing them into a meta-tree of red-black trees. The key insight: an online BST can match the optimal offline BST to within a O(log log n) factor — remarkably close to optimal.</p>
+
+    <p>Tango trees are more of a theoretical result than a practical structure. The implementation is complex, and the practical performance is often worse than splay trees due to constant factors. However, they prove a fundamental lower bound on BST access complexity.</p>
+  </div>
+
+  <!-- 3.7 APPROXIMATE NEAREST NEIGHBOR -->
+  <div class="topic" id="ann-search">
+    <div class="topic-header">
+      <div class="topic-number">3.7</div>
+      <h2>Approximate Nearest Neighbor Search</h2>
+    </div>
+
+    <p>Finding the exact nearest neighbor in high-dimensional spaces (d ≥ 20) is essentially as hard as brute force (the "curse of dimensionality"). Approximate nearest neighbor (ANN) search relaxes the requirement: find a point within (1+ε) of the true nearest neighbor distance.</p>
+
+    <h3>Locality-Sensitive Hashing (LSH)</h3>
+    <p>The standard approach for ANN. The idea: design hash functions such that similar points (nearby in the original metric) are more likely to collide (hash to the same bucket) than dissimilar points. Multiple independent LSH families are used to build a hash table; points in the same bucket as the query are candidates for the nearest neighbor.</p>
+
+    <div class="callout callout-key">
+      <strong>LSH for Euclidean Distance:</strong> A random projection hash function: choose random vector r; h(x) = ⌊(r·x)/w⌋ for window width w. Two points x,y that are close (||x-y|| small) are likely to project to nearby values on r, and thus hash to the same bucket. Points far apart are unlikely to collide.
+    </div>
+
+    <h3>Product Quantization</h3>
+    <p>Used in billion-scale ANN (Facebook's FAISS library). Decompose the high-dimensional vector space into subspaces, quantize each subspace separately, and use lookup tables to approximate distances. Achieves extraordinary speed at the cost of approximation error. This is how image search and vector databases work at scale.</p>
+  </div>
+
+  <!-- 3.8 POSTING LIST INTERSECTION -->
+  <div class="topic" id="posting-list">
+    <div class="topic-header">
+      <div class="topic-number">3.8</div>
+      <h2>Posting List Intersection</h2>
+    </div>
+
+    <p>In information retrieval, a <strong>posting list</strong> (inverted index) stores, for each term, the sorted list of document IDs containing that term. A boolean query "term1 AND term2" requires finding the intersection of their posting lists.</p>
+
+    <h3>Merge-Based Intersection (Two Sorted Lists)</h3>
+    <p>Use two pointers (one per list). Advance the pointer at the smaller element. When they're equal, add to result and advance both. Time: O(m + n) where m, n are list lengths. This is optimal when lists are similar in length.</p>
+
+    <h3>Galloping (Exponential Search)</h3>
+    <p>When one list is much shorter than the other: for each element in the shorter list, use binary search (or galloping search) in the longer list. Galloping search: check indices 1, 2, 4, 8, ... until overshooting, then binary search in the found interval. Time: O(m log(n/m)) which is better than O(m + n) when m ≪ n.</p>
+
+    <h3>Skip Pointers</h3>
+    <p>Augment each posting list with "skip pointers": at every √p positions, add a pointer that jumps √p ahead. When a pointer lags behind, use the skip pointer to advance quickly if the skip target ≤ the other pointer. This reduces average intersection time in practice, though worst-case is still O(m+n).</p>
+  </div>
+
+</section>
+
+<!-- ╔═══════════════════════════════════════════════════════╗
+     ║  MODULE 4: DATA STRUCTURE APPLICATIONS               ║
+     ╚═══════════════════════════════════════════════════════╝ -->
+<section class="module-section" id="module4">
+  <div class="module-badge">Module 04</div>
+  <h1 class="module-title">Data Structure Applications</h1>
+  <p class="module-intro">The final module bridges theory and systems, covering distributed data structures (DHTs, consistent hashing, distributed BSTs), data compression techniques (BWT, histograms, wavelet trees), and cryptographic hashing. These topics appear heavily in the exam's Part B questions.</p>
+
+  <!-- 4.1 DISTRIBUTED HASH TABLES -->
+  <div class="topic" id="dht">
+    <div class="topic-header">
+      <div class="topic-number">4.1</div>
+      <h2>Distributed Hash Tables (DHTs)</h2>
+    </div>
+
+    <p>A Distributed Hash Table extends the hash table concept across hundreds or thousands of machines in a peer-to-peer network. Each machine is responsible for storing only a portion of the key-value pairs. DHTs must handle nodes joining and leaving the network (<em>churn</em>) while maintaining O(log n) lookup and O(log n) routing hops.</p>
+
+    <h3>Chord DHT</h3>
+    <p>The Chord protocol arranges n nodes on a circle (ring) with 2^m possible positions. Each node maintains a <strong>finger table</strong> of m entries: finger[i] = first node ≥ (current_node + 2^i) mod 2^m. This allows routing to any key in O(log n) hops with high probability. When a new node joins, it takes responsibility for some keys from its successor, updating O(log n) finger tables.</p>
+
+    <h3>Kademlia (Used in BitTorrent)</h3>
+    <p>Uses XOR as the distance metric between node IDs. The XOR metric has the property that for any three points, XOR(a,b) XOR XOR(b,c) ≥ XOR(a,c). Routing tables contain O(log n) buckets (k-buckets), each storing contacts at a specific XOR distance range. Lookup takes O(log n) rounds, each contacting k nodes in parallel — very resilient to churn.</p>
+  </div>
+
+  <!-- 4.2 CONSISTENT HASHING -->
+  <div class="topic" id="consistent-hashing">
+    <div class="topic-header">
+      <div class="topic-number">4.2</div>
+      <h2>Consistent Hashing</h2>
+    </div>
+
+    <p>Consistent hashing solves the <strong>minimal disruption</strong> problem in distributed caching: when a server is added or removed, only the minimum necessary set of keys needs to move. Standard modular hashing (key mod k) would require remapping nearly all keys when k changes — disastrous for cache invalidation.</p>
+
+    <h3>The Ring (Hash Ring)</h3>
+    <p>Map both keys and servers to points on a circle of range [0, 2^32) using a hash function. Each key is assigned to the first server clockwise from its position on the ring. When servers are added or removed, only the keys between the new/removed server and its predecessor on the ring need to move.</p>
+
+    <div class="diagram"><span class="hl">Consistent Hashing Ring with k=3 servers (A, B, C) and keys:</span>
+
+              h(A)=0°
+           A ●────────● key4 (90°)
+          /                \
+key7●(330°)                 ● key1 (120°)
+        \                  /
+         ● key6(270°)   B● (180°)
+          \              /
+           ● key5(240°)─●key2(200°)
+                    C●(230°)
+
+Key → Server assignment (first server clockwise):
+  key1 (120°) → B (180°)
+  key2 (200°) → C (230°)
+  key4 (90°)  → B (180°)   (passes A at 0°=360°, wraps to B)
+  key5 (240°) → A (next clockwise is A at 0°/360°)
+
+<span class="gr">Add server D at 150°: only keys between A(0°) and D(150°) that were assigned to B
+now get reassigned to D. Keys previously at C or A are unaffected.</span></div>
+
+    <h3>Expected Fraction of Reassigned Keys (Exam Q7)</h3>
+    <p>With k servers placed uniformly at random on the ring, and N keys also placed uniformly at random:</p>
+
+    <div class="callout callout-math">
+      <strong>Derivation of Expected Reassignment Fraction:</strong><br><br>
+      With k servers on the ring, the ring is divided into k arcs. Each arc (server) owns approximately N/k keys on average.<br><br>
+      When a new server S is added at a uniformly random position: it lands in one of the k arcs, splitting it into two. The keys previously in that arc that now fall between S's predecessor and S are reassigned to S.<br><br>
+      The new server's arc contains, on average, N/k keys (since it lands in a random arc, and arcs have average length 1/k). The new server takes ownership of half of those on average (since S is uniformly placed within the arc).<br><br>
+      Expected reassigned keys = N/(k+1) after the addition (since we now have k+1 servers).<br><br>
+      <strong>Expected fraction = 1/(k+1)</strong><br><br>
+      Intuition: after adding one server to k, each of the k+1 servers should hold N/(k+1) keys. The new server takes 1/(k+1) of all keys from its predecessor, so exactly that fraction moves. This is the minimum possible disruption — no other scheme can do better.
+    </div>
+
+    <h3>Virtual Nodes (Vnodes)</h3>
+    <p>A single server may have non-uniform load if it happens to "own" a large arc. To fix this, assign each physical server <em>V</em> virtual positions on the ring. When a server joins or leaves, all V of its virtual positions appear/disappear, distributing the load changes evenly. Cassandra and DynamoDB use this technique with V = 256 by default.</p>
+  </div>
+
+  <!-- 4.3 DISTRIBUTED BST -->
+  <div class="topic" id="distributed-bst">
+    <div class="topic-header">
+      <div class="topic-number">4.3</div>
+      <h2>Distributed BST</h2>
+    </div>
+
+    <p>A Distributed BST partitions a binary search tree across multiple machines, allowing the tree to scale beyond what a single machine can hold. The key challenge: maintaining balance while minimizing inter-node communication.</p>
+
+    <p>One approach (used in distributed databases like Google Spanner): maintain a B-tree where each B-tree node (which holds many keys) resides on one machine. This limits the number of network hops for any key lookup to O(log_B n) — with large B (thousands), this is effectively O(1)–O(2) hops.</p>
+
+    <p>Another approach: divide the keyspace into ranges (sharding), with each shard stored on one machine. A routing layer (itself a small BST or hash map) maps keys to shards. Range queries spanning multiple shards must be fanned out to multiple machines and results merged.</p>
+  </div>
+
+  <!-- 4.4 BURROWS-WHEELER TRANSFORM -->
+  <div class="topic" id="bwt">
+    <div class="topic-header">
+      <div class="topic-number">4.4</div>
+      <h2>Burrows-Wheeler Transform (BWT)</h2>
+    </div>
+
+    <p>The BWT (1994) is a reversible text transformation that rearranges characters to produce long runs of identical characters, dramatically improving compression. It is the core of bzip2 and is central to the FM-index for substring search.</p>
+
+    <h3>How to Compute the BWT</h3>
+    <ol class="steps">
+      <li>Append a unique terminal character $ (lexicographically smallest) to the string S. Let T = S + "$".</li>
+      <li>Form all cyclic rotations of T.</li>
+      <li>Sort all rotations lexicographically.</li>
+      <li>The BWT is the last column of the sorted rotation matrix.</li>
+    </ol>
+
+    <div class="diagram"><span class="hl">BWT of "banana$":</span>
+
+All cyclic rotations of "banana$" (7 chars):
+  banana$         ← original (row 1)
+  anana$b
+  nana$ba
+  ana$ban
+  na$bana
+  a$banan
+  $banana
+
+Sorted alphabetically:
+  $banana         BWT[0] = 'a'
+  a$banan         BWT[1] = 'n'
+  abanan$         ← wait, let me redo properly
+  
+Correct sorted rotations of "banana$":
+  $banana   → last char: a
+  a$banan   → last char: n
+  ana$ban   → last char: n
+  anana$b   → last char: b
+  banana$   → last char: $
+  na$bana   → last char: a
+  nana$ba   → last char: a
+
+<span class="hl">BWT("banana$") = "annb$aa"</span>
+
+<span class="gr">Note the runs: 'nn', 'aa' — identical chars grouped together!</span>
+<span class="gr">RLE and move-to-front coding can now compress this very effectively.</span></div>
+
+    <h3>Why BWT Has Same Frequency Histogram (Exam Q 16b)</h3>
+    <p>The BWT is a <em>permutation</em> of the original string. Every character that appears in the original string appears exactly the same number of times in the BWT — only the order changes. Therefore, the frequency histogram (count of each character) is identical. However, the BWT tends to group identical characters together into runs. Run-length encoding can then represent long runs very compactly. Move-to-front coding (MTF) translates the runs into small numbers (recently seen characters have low codes), and these small numbers compress well with Huffman or arithmetic coding.</p>
+
+    <h3>Inverse BWT</h3>
+    <p>The BWT is reversible. Given the last column L (the BWT output), we can recover the original string. The key insight: the last column L and the first column F (sorted version of L) allow us to reconstruct the original string character by character using the LF-mapping: if L[i] is the j-th occurrence of character c, it corresponds to the j-th occurrence of c in F. Walking the LF-mapping starting from the row containing $ recovers S in reverse.</p>
+
+    <h3>BWT + FM-Index for Substring Search (Exam Q 15)</h3>
+    <p>Preprocessing: compute BWT, first column F, and a rank data structure (occ[c][i] = number of occurrences of character c in L[0..i]). This takes O(n) space and O(n log n) build time (using suffix array). Search for pattern P[0..m-1]: use backward search, iteratively extending the interval of matching suffixes from right to left. Each extension uses one occ[] lookup (O(1) with wavelet tree). Total query time: O(m).</p>
+  </div>
+
+  <!-- 4.5 HISTOGRAMS -->
+  <div class="topic" id="histograms">
+    <div class="topic-header">
+      <div class="topic-number">4.5</div>
+      <h2>Histograms, Compressed Histograms &amp; Change Detection</h2>
+    </div>
+
+    <p>A histogram counts occurrences of values in bins. For an image frame with pixels in [0, 255], a histogram H has H[v] = number of pixels with intensity v. Histograms are the standard tool for image statistics and change detection in video surveillance.</p>
+
+    <h3>Compressed Histograms with b Bins (Exam Q 16)</h3>
+    <p>Instead of 256 bins (one per intensity value), group intensities into b bins. Bin i covers intensities in range [i × (256/b), (i+1) × (256/b) − 1]. Each pixel's intensity is mapped to its bin index, and that bin's counter is incremented.</p>
+
+    <h3>Computing a Compressed Histogram per Frame</h3>
+    <p>For each of n pixels: compute bin index (O(1) division/shift), increment the bin counter. Total: O(n) per frame. Compare two histograms (current frame vs previous frame) using a distance metric: Chi-squared distance Σᵢ (H₁[i] − H₂[i])² / (H₁[i] + H₂[i]) or L1 distance Σᵢ |H₁[i] − H₂[i]|. Computing the distance is O(b).</p>
+
+    <h3>Change Detection Algorithm</h3>
+    <p>For consecutive frames A and B: if dist(H_A, H_B) &gt; threshold, flag as a scene change (potential traffic event). The threshold is chosen based on expected variation from camera noise vs actual scene changes. This is the approach used in cut detection in video editing and event detection in traffic surveillance.</p>
+
+    <div class="callout callout-math">
+      <strong>Complexity Analysis (Exam Q 16 iii):</strong><br>
+      Time per frame: O(n) to compute histogram, O(b) to compare → total O(n + b) per frame.<br>
+      Time per second: f frames/second → O(f(n + b)) per second.<br>
+      Space per frame: O(b) for the histogram (b counters).<br>
+      Space total: O(b) — only need current and previous histogram simultaneously.<br>
+      For typical values: b = 64, n = 1920×1080 ≈ 2M pixels, f = 30 fps.<br>
+      Time per second: O(30 × (2×10⁶ + 64)) ≈ O(60M) operations — real-time feasible.
+    </div>
+
+    <h3>Real-Time Update</h3>
+    <p>For streaming updates (pixels arriving in real-time): maintain a running histogram. When pixel p is updated to new value v': decrement bin of old value, increment bin of new value. Each update is O(1). The histogram is always current and comparison can happen at any time in O(b).</p>
+  </div>
+
+  <!-- 4.6 WAVELET TREES -->
+  <div class="topic" id="wavelet-trees">
+    <div class="topic-header">
+      <div class="topic-number">4.6</div>
+      <h2>Wavelet Trees</h2>
+    </div>
+
+    <p>The wavelet tree is a powerful data structure for answering range queries on sequences over arbitrary alphabets. It supports k-th smallest queries, range frequency queries, and many others — all in O(log σ) time where σ is the alphabet size.</p>
+
+    <h3>Structure</h3>
+    <p>Given array A[0..n-1] with values in range [1, σ], the wavelet tree is a perfect binary tree of depth ⌈log σ⌉. The root covers the full range [1, σ]. Each internal node covers a subrange [lo, hi] and stores a bit vector B: B[i] = 0 if A[i] ≤ mid (where mid = (lo+hi)/2), and B[i] = 1 if A[i] &gt; mid. The left child covers [lo, mid] and the right child covers [mid+1, hi].</p>
+
+    <div class="diagram"><span class="hl">Wavelet Tree for A = [3,1,4,1,5,9,2,6], σ=9:</span>
+
+Root [1,9]: bit vector for "is value ≤ 5?"
+  A: [3,1,4,1,5,9,2,6]
+  B: [0,0,0,0,0,1,0,1]  (0=goes left(≤5), 1=goes right(>5))
+
+Left child [1,5] gets: [3,1,4,1,5,2] (elements where B=0)
+  B_L: [1,0,1,0,1,0]  (0=≤3, 1=>3; mid=3)
+
+Right child [6,9] gets: [9,6] (elements where B=1)
+  B_R: [1,0]  (0=≤7, 1=>7; mid=7)
+
+<span class="cm">... recursion continues to leaves</span>
+<span class="cm">Each leaf represents a single value → no bit vector needed</span></div>
+
+    <h3>k-th Smallest in Range [L, R] (Exam Q8 — Full Algorithm)</h3>
+    <p>This is the wavelet tree's signature operation. The algorithm navigates the tree from root to a leaf:</p>
+
+    <ol class="steps">
+      <li>Start at the root node covering [lo, hi] with query range [L, R] and searching for the k-th smallest.</li>
+      <li>Count how many elements in A[L..R] went to the left child: left_count = rank₀(B, R) − rank₀(B, L-1), where rank₀(B, i) = number of 0s in B[0..i]. This is O(1) with a precomputed rank structure.</li>
+      <li>If k ≤ left_count, the answer is in the left subtree. Update the query range to [rank₀(B,L-1), rank₀(B,R)-1] (the new indices in the left child's array) and recurse with the same k.</li>
+      <li>If k &gt; left_count, the answer is in the right subtree. Update k to k − left_count, update the query range to [rank₁(B,L-1), rank₁(B,R)-1] (indices in right child's array), and recurse.</li>
+      <li>When we reach a leaf, the current range represents the answer value. Return it.</li>
+    </ol>
+
+    <div class="callout callout-math">
+      <strong>Time Complexity:</strong><br>
+      Each step of the algorithm: one rank query (O(1) with precomputed arrays) + O(1) arithmetic.<br>
+      Number of steps = height of tree = ⌈log σ⌉.<br>
+      <strong>Total query time: O(log σ)</strong>.<br><br>
+      For stock prices with σ = 10⁶ possible values: log₂(10⁶) ≈ 20 steps per query.<br>
+      Space: O(n log σ) bits for all bit vectors.
+    </div>
+
+    <h3>Application to Stock Prices (Exam Q8)</h3>
+    <p>Store all n stock prices (recorded every second) in array A. Build a wavelet tree on A. A query "k-th smallest price in interval [L, R]" (e.g., "what is the median price between second 100 and second 500?") is answered in O(log σ) time, where σ is the number of distinct prices — typically logarithmic in the price range. This is vastly faster than sorting the subarray (O((R-L) log(R-L))) for each query.</p>
+  </div>
+
+  <!-- 4.7 CRYPTOGRAPHIC HASHING -->
+  <div class="topic" id="crypto-hash">
+    <div class="topic-header">
+      <div class="topic-number">4.7</div>
+      <h2>Cryptographic Hash Functions</h2>
+    </div>
+
+    <p>A cryptographic hash function maps data of arbitrary size to a fixed-size digest (e.g., SHA-256 produces 256 bits). Unlike data structure hash functions (optimized for speed and uniformity), cryptographic hash functions must satisfy strong one-way properties that make them suitable for security applications.</p>
+
+    <h3>Requirements for a Secure Cryptographic Hash (Exam Q 15b)</h3>
+
+    <div class="def-grid">
+      <div class="def-term">Pre-image Resistance</div>
+      <div class="def-desc">Given digest h, computationally infeasible to find any input x such that H(x) = h. This makes the hash "one-way" — you cannot reverse it to find the original data. Quantitatively: requires 2^n work for n-bit hash (brute force).</div>
+
+      <div class="def-term">Second Pre-image Resistance</div>
+      <div class="def-desc">Given input x and its digest H(x), computationally infeasible to find a different input x' ≠ x such that H(x') = H(x). This prevents an attacker from substituting a document with a different one having the same hash.</div>
+
+      <div class="def-term">Collision Resistance</div>
+      <div class="def-desc">Computationally infeasible to find any two distinct inputs x ≠ x' such that H(x) = H(x'). Stronger than second pre-image resistance (attacker chooses both inputs freely). Requires 2^{n/2} work due to the birthday paradox — SHA-256 (n=256) requires 2^128 operations, currently infeasible.</div>
+
+      <div class="def-term">Avalanche Effect</div>
+      <div class="def-desc">A small change in input (even 1 bit) produces a completely different output — ideally 50% of output bits flip. This prevents attackers from making small, undetected modifications to data.</div>
+
+      <div class="def-term">Efficiency</div>
+      <div class="def-desc">Computing H(x) should be fast (microseconds) for legitimate use cases, but finding collisions or pre-images must remain computationally infeasible. This asymmetry is what makes hashing useful for authentication.</div>
+
+      <div class="def-term">Fixed Output Size</div>
+      <div class="def-desc">The digest has constant size regardless of input length. SHA-256 always produces 256 bits whether the input is 1 byte or 1 terabyte. This enables comparison, storage, and use as identifiers.</div>
+
+      <div class="def-term">Determinism</div>
+      <div class="def-desc">H(x) always returns the same digest for the same input. This is essential for verification.</div>
+    </div>
+
+    <h3>SHA-256 (Secure Hash Algorithm)</h3>
+    <p>SHA-256 uses a Merkle-Damgård construction: process the message in 512-bit blocks, maintaining a 256-bit state. Each block is processed through 64 rounds of a compression function involving bitwise operations (AND, OR, XOR, NOT), modular addition, and bit rotation. The final state is the digest. Processing takes O(|message|) time.</p>
+
+    <h3>Applications</h3>
+    <p>Password storage (store H(password), never the password), digital signatures (sign H(document) instead of the document), integrity checking (Merkle trees, Git, package managers), proof-of-work (Bitcoin requires finding nonce such that H(block + nonce) starts with k zeros).</p>
+  </div>
+
+  <!-- 4.8 SPLAY TREES (FULL) -->
+  <div class="topic" id="splay-trees">
+    <div class="topic-header">
+      <div class="topic-number">4.8</div>
+      <h2>Splay Trees — Full Treatment</h2>
+    </div>
+
+    <p>Splay trees, invented by Sleator and Tarjan in 1985, are self-adjusting binary search trees. Every operation moves the accessed node to the root via a sequence of rotations called a <em>splay</em>. Despite potentially becoming very unbalanced, they achieve O(log n) amortized time per operation and have remarkable self-optimizing properties.</p>
+
+    <h3>Splay Operation</h3>
+    <p>Given node x, splay(x) moves x to the root using three cases:</p>
+
+    <div class="diagram"><span class="hl">Splay Cases (x is the node being splayed):</span>
+
+<span class="bl">Case 1: ZIG (x's parent p is the root)</span>
+    p           x
+   / \   →    / \
+  x   C      A   p
+ / \             / \
+A   B           B   C
+Single rotation at p (right rotation shown).
+
+<span class="bl">Case 2: ZIG-ZIG (x and p are both left children)</span>
+      g             x
+     / \           / \
+    p   D         A   p
+   / \       →      / \
+  x   C            B   g
+ / \                  / \
+A   B                C   D
+Rotate p about g FIRST, then rotate x about p.
+
+<span class="bl">Case 3: ZIG-ZAG (x is right child, p is left child)</span>
+    g              x
+   / \           /   \
+  p   D         p     g
+ / \       →   / \   / \
+A   x         A   B C   D
+   / \
+  B   C
+Double rotation: x about p, then x about g.
+Same as AVL's LR rotation but done for different reasons.</div>
+
+    <h3>Amortized Analysis</h3>
+    <p>Define potential Φ = Σᵥ log(size[v]). The amortized cost of splay(x) is O(log n). The key insight: zig-zig rotations decrease potential enough to pay for the structural work, while zig and zig-zag cases handle the boundary. Total amortized cost for m operations on a tree of n elements starting empty: O((m + n) log n).</p>
+
+    <h3>Working Set Theorem</h3>
+    <p>If element x was last accessed t steps ago, accessing x costs O(log t) amortized. This makes splay trees optimal for repeated accesses of the same small set of elements — the most recently used elements float to the top.</p>
+  </div>
+
+  <!-- 4.9 RAY TRACING & BVH -->
+  <div class="topic" id="ray-tracing">
+    <div class="topic-header">
+      <div class="topic-number">4.9</div>
+      <h2>Ray Tracing Data Structures (KD-Trees &amp; BVH)</h2>
+    </div>
+
+    <p>Ray tracing simulates light by casting rays from a virtual camera, computing what each ray intersects in the scene. With n objects, naive O(n) intersection testing per ray is too slow for real-time or complex scenes. Spatial acceleration structures bring this to O(log n) per ray.</p>
+
+    <h3>The Setup (Exam Q 14a)</h3>
+    <p>A scene has n geometric objects (triangles, spheres, etc.). We want to efficiently answer: "what is the first object that ray r hits?" Preprocessing time should be O(n log n), and each ray query should run in O(log n + k) where k = number of intersected objects.</p>
+
+    <h3>Grid-Based Uniform Subdivision (First Level)</h3>
+    <p>Divide the bounding box of the scene into a uniform grid. Assign each object to all grid cells it overlaps. A ray traversal visits only cells the ray passes through (using DDA algorithm or 3D Bresenham — O(√n) cells for n objects). This provides the first-level acceleration described in the exam question.</p>
+
+    <h3>KD-Tree for Ray Tracing</h3>
+    <p>Within each grid cell, or as the primary structure, use a KD-tree. At each internal node, store the splitting plane (axis and position). For a ray traversal: determine which child subtree the ray enters first, visit it, and if no intersection is found before the ray reaches the splitting plane, visit the other child.</p>
+
+    <div class="callout callout-math">
+      <strong>Preprocessing: O(n log n)</strong><br>
+      Build the KD-tree by finding the median split point (O(n) with linear median, but O(n log n) sorting is common in practice) at each level. There are O(log n) levels, so total: O(n log n).<br><br>
+      <strong>Ray Query: O(log n + k)</strong><br>
+      The ray visits O(log n) KD-tree nodes in the "good" case (few objects to check at each node). When the ray hits a leaf, it does intersection tests with the k objects in that leaf. The O(log n) bound holds under the assumption that the KD-tree is balanced and objects are distributed well. With k intersected objects reported, the total is O(log n + k).
+    </div>
+
+    <h3>Bounding Volume Hierarchy (BVH)</h3>
+    <p>An alternative to KD-trees that is preferred in modern renderers (NVIDIA RTX hardware, Blender Cycles). Instead of splitting space, a BVH splits <em>objects</em>: group nearby objects into bounding boxes (AABBs), and build a hierarchy of these bounding volumes. A ray is tested against each bounding box first (cheap) and only enters a subtree if the ray hits the box.</p>
+
+    <p>BVH advantages over KD-trees: easier to build, handles dynamic scenes (objects can be re-inserted when they move without full rebuild), and is more amenable to GPU parallelism. NVIDIA's RT Cores in modern GPUs accelerate BVH traversal in hardware.</p>
+
+    <div class="table-wrap">
+    <table>
+      <thead><tr><th>Property</th><th>KD-Tree</th><th>BVH</th></tr></thead>
+      <tbody>
+        <tr><td>Splits</td><td>Space</td><td>Objects</td></tr>
+        <tr><td>Build time</td><td>O(n log n)</td><td>O(n log n)</td></tr>
+        <tr><td>Query time</td><td>O(log n + k)</td><td>O(log n + k)</td></tr>
+        <tr><td>Dynamic updates</td><td>Expensive (full rebuild)</td><td>Efficient (local update)</td></tr>
+        <tr><td>GPU suitability</td><td>Moderate</td><td>Excellent (NVIDIA RT Core)</td></tr>
+        <tr><td>Used in</td><td>Pbrt, old renderers</td><td>Blender, Unreal, RTX GPUs</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+</section>
+
+<!-- ╔═══════════════════════════════════════════════════════╗
+     ║  EXAM QUICK REFERENCE                                ║
+     ╚═══════════════════════════════════════════════════════╝ -->
+<section class="module-section" id="exam-ref">
+  <div class="module-badge">Exam Reference</div>
+  <h1 class="module-title">Quick Reference &amp; Complexity Cheat Sheet</h1>
+  <p class="module-intro">A consolidated summary of all major data structures, their complexities, and the key formulas needed for the exam.</p>
+
+  <div class="topic">
+    <h2>All Data Structures at a Glance</h2>
+
+    <div class="table-wrap">
+    <table>
+      <thead><tr><th>Structure</th><th>Search</th><th>Insert</th><th>Delete</th><th>Special Op</th><th>Space</th></tr></thead>
+      <tbody>
+        <tr><td>Hash Table (Chaining)</td><td>O(1+α) avg</td><td>O(1) avg</td><td>O(1+α) avg</td><td>Rehash O(n)</td><td>O(n)</td></tr>
+        <tr><td>Cuckoo Hash</td><td>O(1) worst</td><td>O(1) amort</td><td>O(1)</td><td>—</td><td>O(n)</td></tr>
+        <tr><td>Bloom Filter</td><td>O(k)</td><td>O(k)</td><td>N/A</td><td>FP: (1−e^{-kn/m})^k</td><td>O(m)</td></tr>
+        <tr><td>Count-Min Sketch</td><td>O(d) query</td><td>O(d) update</td><td>N/A</td><td>Error ε·N w.p. 1−δ</td><td>O(d·w)</td></tr>
+        <tr><td>AVL Tree</td><td>O(log n)</td><td>O(log n)</td><td>O(log n)</td><td>k-th: O(log n) with augmentation</td><td>O(n)</td></tr>
+        <tr><td>Red-Black Tree</td><td>O(log n)</td><td>O(log n)</td><td>O(log n)</td><td>≤3 rotations per op</td><td>O(n)</td></tr>
+        <tr><td>Splay Tree</td><td>O(log n) amort</td><td>O(log n) amort</td><td>O(log n) amort</td><td>Working set property</td><td>O(n)</td></tr>
+        <tr><td>Skip List</td><td>O(log n) exp</td><td>O(log n) exp</td><td>O(log n) exp</td><td>Levels: O(log n)</td><td>O(n) exp</td></tr>
+        <tr><td>Trie</td><td>O(m)</td><td>O(m)</td><td>O(m)</td><td>Autocomplete O(m+k)</td><td>O(N) total</td></tr>
+        <tr><td>Segment Tree</td><td>O(log n)</td><td>O(log n)</td><td>O(log n)</td><td>Range query O(log n)</td><td>O(n)</td></tr>
+        <tr><td>Sparse Table</td><td>O(1) RMQ</td><td>N/A</td><td>N/A</td><td>Build O(n log n)</td><td>O(n log n)</td></tr>
+        <tr><td>Binomial Heap</td><td>O(log n) min</td><td>O(1) amort</td><td>O(log n)</td><td>Union O(log n)</td><td>O(n)</td></tr>
+        <tr><td>Fibonacci Heap</td><td>O(1) min</td><td>O(1)</td><td>O(log n) amort</td><td>Decrease-Key O(1) amort</td><td>O(n)</td></tr>
+        <tr><td>Merkle Tree</td><td>O(log n) verify</td><td>O(log n)</td><td>O(log n)</td><td>Build O(n)</td><td>O(n)</td></tr>
+        <tr><td>KD-Tree</td><td>O(log n) NN avg</td><td>O(log n)</td><td>O(log n)</td><td>Build O(n log n)</td><td>O(n)</td></tr>
+        <tr><td>Quadtree</td><td>O(log n)</td><td>O(log n)</td><td>O(log n)</td><td>Range O(√n+k)</td><td>O(n)</td></tr>
+        <tr><td>Wavelet Tree</td><td>O(log σ) k-th</td><td>N/A (static)</td><td>N/A</td><td>Range freq O(log σ)</td><td>O(n log σ)</td></tr>
+        <tr><td>Suffix Array</td><td>O(m log n)</td><td>N/A</td><td>N/A</td><td>Build O(n log n)</td><td>O(n)</td></tr>
+        <tr><td>FM-Index</td><td>O(m)</td><td>N/A</td><td>N/A</td><td>Build O(n)</td><td>O(n)</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h3>Key Formulas to Memorize</h3>
+    <div class="callout callout-math">
+      <strong>Bloom Filter False Positive Rate:</strong> (1 − e^{−kn/m})^k<br>
+      <strong>Optimal k (Bloom):</strong> k = (m/n) ln 2 ≈ 0.693 · m/n<br>
+      <strong>Consistent Hashing Reassignment:</strong> 1/(k+1) fraction of keys<br>
+      <strong>Skip List Expected Levels:</strong> log_{1/p}(n) ≈ log₂(n) for p=0.5<br>
+      <strong>AVL Height:</strong> h ≤ 1.44 log₂(n+2) − 0.328<br>
+      <strong>RB Tree Height:</strong> h ≤ 2 log₂(n+1)<br>
+      <strong>Binomial Tree Bk Nodes:</strong> 2^k<br>
+      <strong>Optimal Binomial Heap Insert (amortized):</strong> O(1)<br>
+      <strong>CMS Error Bound:</strong> P(f̂(x) > f(x) + εN) ≤ δ with w=⌈e/ε⌉, d=⌈ln(1/δ)⌉<br>
+      <strong>Segment Tree Range Decomposition:</strong> O(log n) canonical segments<br>
+      <strong>Sparse Table RMQ:</strong> O(1) with O(n log n) preprocessing<br>
+      <strong>BWT Output:</strong> Same frequency histogram as input, better compressibility<br>
+      <strong>Wavelet Tree k-th Smallest:</strong> O(log σ) per query
+    </div>
+  </div>
+</section>
+
+</div><!-- /content -->
+</main>
+
+<script>
+// Reading progress bar
+window.addEventListener('scroll', () => {
+  const scrollTop = document.documentElement.scrollTop;
+  const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = (scrollTop / scrollHeight) * 100;
+  document.getElementById('progress').style.width = progress + '%';
+});
+
+// Active nav item highlighting
+const navItems = document.querySelectorAll('.nav-item');
+const sections = document.querySelectorAll('[id]');
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navItems.forEach(item => item.classList.remove('active'));
+      const activeLink = document.querySelector(`.nav-item[href="#${entry.target.id}"]`);
+      if (activeLink) {
+        activeLink.classList.add('active');
+        activeLink.scrollIntoView({ block: 'nearest' });
+      }
+    }
+  });
+}, { rootMargin: '-20% 0px -70% 0px' });
+
+sections.forEach(section => observer.observe(section));
+</script>
+</body>
+</html>
